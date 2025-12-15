@@ -2,6 +2,7 @@ package oop;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Objects;
 import java.util.Optional;
 
 public class Persona {
@@ -80,8 +81,26 @@ public class Persona {
 	}
 
 	@Override
+	public int hashCode() {
+		return Objects.hash(fechaNacimiento, id, nombre);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Persona other = (Persona) obj;
+		return Objects.equals(fechaNacimiento, other.fechaNacimiento) && Objects.equals(id, other.id)
+				&& Objects.equals(nombre, other.nombre);
+	}
+
+	@Override
 	public String toString() {
 		return String.format("Persona [id=%s, nombre=%s, fechaNacimiento=%s]", id, nombre, fechaNacimiento);
 	}
-	
+
 }
