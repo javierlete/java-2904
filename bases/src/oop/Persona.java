@@ -77,7 +77,12 @@ public class Persona {
 			return Optional.empty();
 		}
 
-		return Optional.of(Period.between(fechaNacimiento, LocalDate.now()).getYears());
+		return Optional.of(getEdad(fechaNacimiento));
+	}
+	
+	// MÉTODOS ESTÁTICOS
+	public static int getEdad(LocalDate fecha) {
+		return Period.between(fecha, LocalDate.now()).getYears();
 	}
 
 	@Override

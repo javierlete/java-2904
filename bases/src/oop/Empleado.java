@@ -4,17 +4,33 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Empleado extends Persona {
+	private static final int MAYORIA_DE_EDAD = 18;
+	
 	private String dni;
 	private String numeroSeguridadSocial;
 
 	public Empleado(Long id, String nombre, LocalDate fechaNacimiento, String dni, String numeroSeguridadSocial) {
 		super(id, nombre, fechaNacimiento);
-		this.dni = dni;
-		this.numeroSeguridadSocial = numeroSeguridadSocial;
+		setDni(dni);
+		setNumeroSeguridadSocial(numeroSeguridadSocial);
 	}
 
 	public Empleado(String nombre, LocalDate fechaNacimiento, String dni, String numeroSeguridadSocial) {
 		this(null, nombre, fechaNacimiento, dni, numeroSeguridadSocial);
+	}
+
+	@Override
+	public void setFechaNacimiento(LocalDate fechaNacimiento) {
+		if(fechaNacimiento == null || !isMayorDeEdad(fechaNacimiento)) {
+			throw new IllegalArgumentException("No se admiten empleados sin fecha de nacimiento o menores de edad");
+		}
+		
+		super.setFechaNacimiento(fechaNacimiento);
+	}
+	
+	public static boolean isMayorDeEdad(LocalDate fechaNacimiento) {
+		return getEdad(fechaNacimiento) >= MAYORIA_DE_EDAD;
+		// return fechaNacimiento.plusYears(MAYORIA_DE_EDAD).isAfter(LocalDate.now());
 	}
 
 	public String getDni() {
@@ -22,6 +38,10 @@ public class Empleado extends Persona {
 	}
 
 	public void setDni(String dni) {
+		if(dni == null || !dni.matches("[\\dXYZ]\\d{7}[A-Z]")) {
+			throw new IllegalArgumentException("El DNI es obligatorio y tiene que tener el formato adecuado");
+		}
+		
 		this.dni = dni;
 	}
 
