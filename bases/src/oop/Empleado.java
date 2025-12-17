@@ -1,13 +1,14 @@
 package oop;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Empleado extends Persona {
+public abstract class Empleado extends Persona {
 	private static final int MAYORIA_DE_EDAD = 18;
 	
-	private String dni;
-	private String numeroSeguridadSocial;
+	protected String dni;
+	protected String numeroSeguridadSocial;
 
 	public Empleado(Long id, String nombre, LocalDate fechaNacimiento, String dni, String numeroSeguridadSocial) {
 		super(id, nombre, fechaNacimiento);
@@ -52,6 +53,8 @@ public class Empleado extends Persona {
 	public void setNumeroSeguridadSocial(String numeroSeguridadSocial) {
 		this.numeroSeguridadSocial = numeroSeguridadSocial;
 	}
+	
+	public abstract BigDecimal getSueldoMensual();
 
 	@Override
 	public int hashCode() {
