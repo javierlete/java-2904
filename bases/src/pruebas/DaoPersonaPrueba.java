@@ -4,12 +4,12 @@ import java.time.Duration;
 import java.time.LocalTime;
 
 import daos.DaoPersona;
-import daos.DaoPersonaMap;
+import fabrica.Fabrica;
 import oop.Persona;
 
 public class DaoPersonaPrueba {
 	public static void main(String[] args) {
-		DaoPersona dao = new DaoPersonaMap();
+		DaoPersona dao = Fabrica.getDaoPersona();
 
 		var antes = LocalTime.now();
 
@@ -25,5 +25,7 @@ public class DaoPersonaPrueba {
 		}
 
 		System.out.println(Duration.between(antes, despues));
+		
+		System.out.println(dao.getClass().getName());
 	}
 }
