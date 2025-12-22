@@ -2,13 +2,14 @@ package daos;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Optional;
 
 import oop.Persona;
 
 public class DaoPersonaCollection implements DaoPersona {
-	private Collection<Persona> personas = new HashSet<>();
+	private Long siguienteId = 1L;
+	
+	private Collection<Persona> personas = new ArrayList<>();
 
 	@Override
 	public Iterable<Persona> obtenerTodos() {
@@ -42,6 +43,8 @@ public class DaoPersonaCollection implements DaoPersona {
 
 	@Override
 	public Persona insertar(Persona persona) {
+		persona.setId(siguienteId++);
+		
 		personas.add(persona);
 
 		return persona;
