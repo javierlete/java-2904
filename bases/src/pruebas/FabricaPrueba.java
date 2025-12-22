@@ -6,13 +6,13 @@ import java.util.Date;
 import fabrica.Fabrica;
 
 public class FabricaPrueba {
+	@SuppressWarnings("unchecked")
 	public static void main(String[] args) {
-		var hoy = (Date) Fabrica.getObjeto("hoy");
+		var hoy = Fabrica.getObjeto("hoy", Date.class);
 		
 		System.out.println(hoy);
 		
-		@SuppressWarnings("unchecked")
-		var coleccion = (Collection<String>) Fabrica.getObjeto("lista");
+		var coleccion = Fabrica.getObjeto("lista", Collection.class);
 		
 		coleccion.add("Hola");
 		coleccion.add("Pepe");

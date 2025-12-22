@@ -9,7 +9,7 @@ import oop.Persona;
 
 public class DaoPersonaPrueba {
 	public static void main(String[] args) {
-		DaoPersona dao = (DaoPersona) Fabrica.getObjeto("daos.persona");
+		DaoPersona dao = Fabrica.getObjeto("daos.persona", DaoPersona.class);
 
 		var antes = LocalTime.now();
 

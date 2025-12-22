@@ -1,6 +1,5 @@
 package fabrica;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
 
@@ -16,14 +15,15 @@ public class Fabrica {
 		
 	}
 
-	public static Object getObjeto(String clave) { // "daos.persona"
+	public static <T> T getObjeto(String clave, Class<T> tipo) { // "daos.persona"
 		String nombreClase = props.getProperty(clave); // "daos.DaoPersonaMap"
 		
-		Object instancia;
+		T instancia;
 		
 		try {
-			Class<?> clase = Class.forName(nombreClase); // daos.DaoPersonaMap
-			Constructor<?> constructor = clase.getConstructor(); // public daos.DaoPersonaMap() {}
+			@SuppressWarnings("unchecked")
+			var clase = (Class<T>)Class.forName(nombreClase); // daos.DaoPersonaMap
+			var constructor = clase.getConstructor(); // public daos.DaoPersonaMap() {}
 			instancia = constructor.newInstance();
 		} catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException
 				| IllegalArgumentException | InvocationTargetException e) {
