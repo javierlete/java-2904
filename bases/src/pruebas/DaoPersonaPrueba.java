@@ -1,18 +1,29 @@
 package pruebas;
 
+import java.time.Duration;
+import java.time.LocalTime;
+
 import daos.DaoPersona;
-import daos.DaoPersonaCollection;
+import daos.DaoPersonaMap;
 import oop.Persona;
 
 public class DaoPersonaPrueba {
 	public static void main(String[] args) {
-		DaoPersona dao = new DaoPersonaCollection();
+		DaoPersona dao = new DaoPersonaMap();
+
+		var antes = LocalTime.now();
+
+		for (int i = 1; i <= 100000; i++) {
+			dao.insertar(new Persona("Persona" + i));
+		}
+
+		var despues = LocalTime.now();
 		
-		dao.insertar(new Persona("Javier"));
-		dao.insertar(new Persona("Pepe"));
-		
-		for(Persona p: dao.obtenerTodos()) {
+
+		for (Persona p : dao.obtenerTodos()) {
 			System.out.println(p);
 		}
+
+		System.out.println(Duration.between(antes, despues));
 	}
 }
