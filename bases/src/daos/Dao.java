@@ -1,9 +1,10 @@
 package daos;
 
+import java.util.Collection;
 import java.util.Optional;
 
 public interface Dao<T> {
-	Iterable<T> obtenerTodos();
+	Collection<T> obtenerTodos();
 	Optional<T> obtenerPorId(Long id);
 	
 	T insertar(T objeto);

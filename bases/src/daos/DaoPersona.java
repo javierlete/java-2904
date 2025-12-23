@@ -1,7 +1,9 @@
 package daos;
 
+import java.util.Collection;
+
 import oop.Persona;
 
 public interface DaoPersona extends Dao<Persona> {
-	Iterable<Persona> buscarPorNombre(String nombre);
+	Collection<Persona> buscarPorNombre(String nombre);
 }

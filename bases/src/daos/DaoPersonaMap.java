@@ -1,6 +1,6 @@
 package daos;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -13,7 +13,7 @@ public class DaoPersonaMap implements DaoPersona {
 	private Map<Long, Persona> personas = new HashMap<>();
 
 	@Override
-	public Iterable<Persona> obtenerTodos() {
+	public Collection<Persona> obtenerTodos() {
 		return personas.values();
 	}
 
@@ -44,16 +44,8 @@ public class DaoPersonaMap implements DaoPersona {
 	}
 
 	@Override
-	public Iterable<Persona> buscarPorNombre(String nombre) {
-		var resultados = new ArrayList<Persona>();
-		
-		for(var persona: personas.values()) {
-			if(persona.getNombre().contains(nombre)) {
-				resultados.add(persona);
-			}
-		}
-		
-		return resultados;
+	public Collection<Persona> buscarPorNombre(String nombre) {
+		return personas.values().stream().filter(p -> p.getNombre().contains(nombre)).toList();
 	}
 
 }

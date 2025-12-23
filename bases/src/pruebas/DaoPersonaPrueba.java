@@ -18,14 +18,17 @@ public class DaoPersonaPrueba {
 		}
 
 		var despues = LocalTime.now();
+
+//		for (Persona p : dao.obtenerTodos()) {
+//			System.out.println(p);
+//		}
+
+		dao.obtenerTodos().stream().forEach(p -> System.out.println(p));
 		
-
-		for (Persona p : dao.obtenerTodos()) {
-			System.out.println(p);
-		}
-
 		System.out.println(Duration.between(antes, despues));
 		
 		System.out.println(dao.getClass().getName());
+		
+		dao.buscarPorNombre("Persona1000").stream().forEach(System.out::println);
 	}
 }
