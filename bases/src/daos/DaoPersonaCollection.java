@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 import oop.Persona;
+import oop.PersonaDto;
 
 public class DaoPersonaCollection implements DaoPersona {
 	private Long siguienteId = 1L;
@@ -46,6 +47,11 @@ public class DaoPersonaCollection implements DaoPersona {
 	@Override
 	public Collection<Persona> buscarPorNombre(String nombre) {
 		return personas.stream().filter(p -> p.getNombre().contains(nombre)).toList();
+	}
+
+	@Override
+	public Collection<PersonaDto> obtenerPersonaDtos() {
+		return personas.stream().map(p -> new PersonaDto(p.getId(), p.getNombre())).toList();
 	}
 
 }

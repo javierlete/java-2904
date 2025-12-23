@@ -30,5 +30,7 @@ public class DaoPersonaPrueba {
 		System.out.println(dao.getClass().getName());
 		
 		dao.buscarPorNombre("Persona1000").stream().forEach(System.out::println);
+		
+		dao.obtenerPersonaDtos().forEach(System.out::println);
 	}
 }
