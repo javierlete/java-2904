@@ -1,6 +1,7 @@
 package pruebas;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 import daos.DaoPersona;
@@ -13,8 +14,8 @@ public class DaoPersonaPrueba {
 
 		var antes = LocalTime.now();
 
-		for (int i = 1; i <= 100000; i++) {
-			dao.insertar(new Persona("Persona" + i));
+		for (int i = 1; i <= 10; i++) {
+			dao.insertar(new Persona("Persona" + i, LocalDate.now()));
 		}
 
 		var despues = LocalTime.now();
