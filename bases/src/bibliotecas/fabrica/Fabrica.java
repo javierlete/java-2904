@@ -1,4 +1,4 @@
-package fabrica;
+package bibliotecas.fabrica;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;

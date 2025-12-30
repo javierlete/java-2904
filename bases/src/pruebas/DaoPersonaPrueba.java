@@ -4,8 +4,8 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import bibliotecas.fabrica.Fabrica;
 import daos.DaoPersona;
-import fabrica.Fabrica;
 import oop.Persona;
 
 public class DaoPersonaPrueba {

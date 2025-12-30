@@ -1,4 +1,4 @@
-package fabrica;
+package bibliotecas.fabrica;
 
 public class FabricaException extends RuntimeException {
 

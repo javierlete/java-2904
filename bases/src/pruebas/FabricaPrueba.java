@@ -3,7 +3,7 @@ package pruebas;
 import java.util.Collection;
 import java.util.Date;
 
-import fabrica.Fabrica;
+import bibliotecas.fabrica.Fabrica;
 
 public class FabricaPrueba {
 	@SuppressWarnings("unchecked")
