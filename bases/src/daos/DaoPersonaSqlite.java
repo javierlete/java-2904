@@ -33,110 +33,38 @@ public class DaoPersonaSqlite implements DaoPersona {
 
 	@Override
 	public Collection<Persona> obtenerTodos() {
-		var personas = new ArrayList<Persona>();
-
-		try (var con = DriverManager.getConnection(URL, USER, PASS);
-				var pst = con.prepareStatement("SELECT * FROM personas");
-				var rs = pst.executeQuery()) {
-			while (rs.next()) {
-				personas.add(new Persona(rs.getLong("id"), rs.getString("nombre"),
-						rs.getDate("fecha_nacimiento").toLocalDate()));
-			}
-
-			return personas;
-		} catch (SQLException e) {
-			throw new DaoException("Error en la consulta", e);
-		}
+		return ejecutarSql("SELECT * FROM personas");
 	}
 
 	@Override
 	public Optional<Persona> obtenerPorId(Long id) {
-		Optional<Persona> persona = Optional.empty();
-
-		try (var con = DriverManager.getConnection(URL, USER, PASS);
-				var pst = con.prepareStatement("SELECT * FROM personas WHERE id=?");) {
-
-			pst.setLong(1, id);
-
-			var rs = pst.executeQuery();
-
-			if (rs.next()) {
-				persona = Optional.of(new Persona(rs.getLong("id"), rs.getString("nombre"),
-						rs.getDate("fecha_nacimiento").toLocalDate()));
-			}
-
-			return persona;
-		} catch (SQLException e) {
-			throw new DaoException("Error en la consulta", e);
-		}
+		return ejecutarSql("SELECT * FROM personas WHERE id=?", id).stream().findFirst();
 	}
 
 	@Override
 	public Persona insertar(Persona persona) {
-		try (var con = DriverManager.getConnection(URL, USER, PASS);
-				var pst = con.prepareStatement("INSERT INTO personas (nombre, fecha_nacimiento) VALUES (?,?)");) {
+		ejecutarSql("INSERT INTO personas (nombre, fecha_nacimiento) VALUES (?,?)", persona.getNombre(),
+				java.sql.Date.valueOf(persona.getFechaNacimiento()));
 
-			pst.setString(1, persona.getNombre());
-			pst.setDate(2, java.sql.Date.valueOf(persona.getFechaNacimiento()));
-
-			pst.executeUpdate();
-
-			return persona;
-		} catch (SQLException e) {
-			throw new DaoException("Error en la consulta", e);
-		}
+		return persona;
 	}
 
 	@Override
 	public Persona modificar(Persona persona) {
-		try (var con = DriverManager.getConnection(URL, USER, PASS);
-				var pst = con.prepareStatement("UPDATE personas SET nombre=?, fecha_nacimiento=? WHERE id=?");) {
+		ejecutarSql("UPDATE personas SET nombre=?, fecha_nacimiento=? WHERE id=?", persona.getNombre(),
+				java.sql.Date.valueOf(persona.getFechaNacimiento()), persona.getId());
 
-			pst.setString(1, persona.getNombre());
-			pst.setDate(2, java.sql.Date.valueOf(persona.getFechaNacimiento()));
-			pst.setLong(3, persona.getId());
-
-			pst.executeUpdate();
-
-			return persona;
-		} catch (SQLException e) {
-			throw new DaoException("Error en la consulta", e);
-		}
+		return persona;
 	}
 
 	@Override
 	public void borrar(Long id) {
-		try (var con = DriverManager.getConnection(URL, USER, PASS);
-				var pst = con.prepareStatement("DELETE FROM personas WHERE id=?");) {
-
-			pst.setLong(1, id);
-
-			pst.executeUpdate();
-		} catch (SQLException e) {
-			throw new DaoException("Error en la consulta", e);
-		}
+		ejecutarSql("DELETE FROM personas WHERE id=?");
 	}
 
 	@Override
 	public Collection<Persona> buscarPorNombre(String nombre) {
-		var personas = new ArrayList<Persona>();
-
-		try (var con = DriverManager.getConnection(URL, USER, PASS);
-				var pst = con.prepareStatement("SELECT * FROM personas WHERE nombre LIKE ?");
-				) {
-			pst.setString(1, "%" + nombre + "%");
-			
-			try (var rs = pst.executeQuery()) {
-				while (rs.next()) {
-					personas.add(new Persona(rs.getLong("id"), rs.getString("nombre"),
-							rs.getDate("fecha_nacimiento").toLocalDate()));
-				}
-
-				return personas;
-			}
-		} catch (SQLException e) {
-			throw new DaoException("Error en la consulta", e);
-		}
+		return ejecutarSql("SELECT * FROM personas WHERE nombre LIKE ?", nombre);
 	}
 
 	@Override
@@ -151,6 +79,30 @@ public class DaoPersonaSqlite implements DaoPersona {
 			}
 
 			return personas;
+		} catch (SQLException e) {
+			throw new DaoException("Error en la consulta", e);
+		}
+	}
+
+	private Collection<Persona> ejecutarSql(String sql, Object... valores) {
+		var personas = new ArrayList<Persona>();
+
+		try (var con = DriverManager.getConnection(URL, USER, PASS); var pst = con.prepareStatement(sql);) {
+			for (int i = 0; i < valores.length; i++) {
+				pst.setObject(i + 1, valores[i]);
+			}
+
+			if (pst.execute()) {
+				var rs = pst.getResultSet();
+				while (rs.next()) {
+					personas.add(new Persona(rs.getLong("id"), rs.getString("nombre"),
+							rs.getDate("fecha_nacimiento").toLocalDate()));
+				}
+
+				return personas;
+			} else {
+				return null;
+			}
 		} catch (SQLException e) {
 			throw new DaoException("Error en la consulta", e);
 		}
