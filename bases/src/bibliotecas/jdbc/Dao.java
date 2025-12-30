@@ -1,4 +1,4 @@
-package daos;
+package bibliotecas.jdbc;
 
 import java.util.Collection;
 import java.util.Optional;

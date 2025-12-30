@@ -9,7 +9,6 @@ import java.util.Properties;
 import java.util.function.Function;
 
 import bibliotecas.fabrica.Fabrica;
-import daos.DaoException;
 
 public class ConectorSql {
 	private static final String URL;

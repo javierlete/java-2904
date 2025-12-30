@@ -1,4 +1,4 @@
-package daos;
+package bibliotecas.jdbc;
 
 public class DaoException extends RuntimeException {
 

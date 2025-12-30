@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
+import bibliotecas.jdbc.DaoException;
 import oop.Persona;
 import oop.PersonaDto;
 

@@ -2,6 +2,7 @@ package daos;
 
 import java.util.Collection;
 
+import bibliotecas.jdbc.Dao;
 import oop.Persona;
 import oop.PersonaDto;
 
