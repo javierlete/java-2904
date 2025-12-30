@@ -4,44 +4,22 @@ import static bibliotecas.jdbc.ConectorSql.ejecutarSql;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Optional;
 import java.util.function.Function;
 
+import bibliotecas.jdbc.DaoConectorSql;
+import bibliotecas.jdbc.DaoException;
 import oop.Persona;
 import oop.PersonaDto;
 
-public class DaoPersonaSqlite implements DaoPersona {
+public class DaoPersonaSqlite extends DaoConectorSql<Persona> implements DaoPersona {
 
-	@Override
-	public Collection<Persona> obtenerTodos() {
-		return ejecutarSql("SELECT * FROM personas", mapeadorPersona);
-	}
-
-	@Override
-	public Optional<Persona> obtenerPorId(Long id) {
-		return ejecutarSql("SELECT * FROM personas WHERE id=?", mapeadorPersona, id).stream().findFirst();
-	}
-
-	@Override
-	public Persona insertar(Persona persona) {
-		ejecutarSql("INSERT INTO personas (nombre, fecha_nacimiento) VALUES (?,?)", persona.getNombre(),
-				java.sql.Date.valueOf(persona.getFechaNacimiento()));
-
-		return persona;
-	}
-
-	@Override
-	public Persona modificar(Persona persona) {
-		ejecutarSql("UPDATE personas SET nombre=?, fecha_nacimiento=? WHERE id=?", persona.getNombre(),
-				java.sql.Date.valueOf(persona.getFechaNacimiento()), persona.getId());
-
-		return persona;
-	}
-
-	@Override
-	public void borrar(Long id) {
-		ejecutarSql("DELETE FROM personas WHERE id=?");
+	public DaoPersonaSqlite() {
+		super("personas", "nombre", "fecha_nacimiento");
+		
+		mapeador = mapeadorPersona;
+		mapeadorInverso = mapeadorPersonaInverso;
 	}
 
 	@Override
@@ -68,6 +46,19 @@ public class DaoPersonaSqlite implements DaoPersona {
 		} catch (SQLException e) {
 			throw new DaoException("Error en el mapeado de persona", e);
 		}
+	};
+	
+	private Function<Persona, Object[]> mapeadorPersonaInverso = p -> {
+		var lista = new ArrayList<Object>();
+		
+		lista.add(p.getNombre());
+		lista.add(java.sql.Date.valueOf(p.getFechaNacimiento()));
+		
+		if(p.getId() != null) {
+			lista.add(p.getId());
+		}
+		
+		return lista.toArray();
 	};
 
 }
