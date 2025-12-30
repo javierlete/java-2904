@@ -1,11 +1,13 @@
 package daos;
 
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.Properties;
+import java.util.function.Function;
 
 import fabrica.Fabrica;
 import oop.Persona;
@@ -33,12 +35,12 @@ public class DaoPersonaSqlite implements DaoPersona {
 
 	@Override
 	public Collection<Persona> obtenerTodos() {
-		return ejecutarSql("SELECT * FROM personas");
+		return ejecutarSql("SELECT * FROM personas", mapeadorPersona);
 	}
 
 	@Override
 	public Optional<Persona> obtenerPorId(Long id) {
-		return ejecutarSql("SELECT * FROM personas WHERE id=?", id).stream().findFirst();
+		return ejecutarSql("SELECT * FROM personas WHERE id=?", mapeadorPersona, id).stream().findFirst();
 	}
 
 	@Override
@@ -64,28 +66,36 @@ public class DaoPersonaSqlite implements DaoPersona {
 
 	@Override
 	public Collection<Persona> buscarPorNombre(String nombre) {
-		return ejecutarSql("SELECT * FROM personas WHERE nombre LIKE ?", nombre);
+		return ejecutarSql("SELECT * FROM personas WHERE nombre LIKE ?", mapeadorPersona, nombre);
 	}
 
 	@Override
 	public Collection<PersonaDto> obtenerPersonaDtos() {
-		var personas = new ArrayList<PersonaDto>();
-
-		try (var con = DriverManager.getConnection(URL, USER, PASS);
-				var pst = con.prepareStatement("SELECT * FROM personas");
-				var rs = pst.executeQuery()) {
-			while (rs.next()) {
-				personas.add(new PersonaDto(rs.getLong("id"), rs.getString("nombre")));
-			}
-
-			return personas;
-		} catch (SQLException e) {
-			throw new DaoException("Error en la consulta", e);
-		}
+		return ejecutarSql("SELECT * FROM personas", mapeadorPersonaDto);
 	}
 
-	private Collection<Persona> ejecutarSql(String sql, Object... valores) {
-		var personas = new ArrayList<Persona>();
+	private Function<ResultSet, Persona> mapeadorPersona = rs -> {
+		try {
+			return new Persona(rs.getLong("id"), rs.getString("nombre"), rs.getDate("fecha_nacimiento").toLocalDate());
+		} catch (SQLException e) {
+			throw new DaoException("Error en el mapeado de persona", e);
+		}
+	};
+
+	private Function<ResultSet, PersonaDto> mapeadorPersonaDto = rs -> {
+		try {
+			return new PersonaDto(rs.getLong("id"), rs.getString("nombre"));
+		} catch (SQLException e) {
+			throw new DaoException("Error en el mapeado de persona", e);
+		}
+	};
+
+	private <T> Collection<T> ejecutarSql(String sql, Object... valores) {
+		return ejecutarSql(sql, null, valores);
+	}
+
+	private <T> Collection<T> ejecutarSql(String sql, Function<ResultSet, T> mapeador, Object... valores) {
+		var objetos = new ArrayList<T>();
 
 		try (var con = DriverManager.getConnection(URL, USER, PASS); var pst = con.prepareStatement(sql);) {
 			for (int i = 0; i < valores.length; i++) {
@@ -95,11 +105,10 @@ public class DaoPersonaSqlite implements DaoPersona {
 			if (pst.execute()) {
 				var rs = pst.getResultSet();
 				while (rs.next()) {
-					personas.add(new Persona(rs.getLong("id"), rs.getString("nombre"),
-							rs.getDate("fecha_nacimiento").toLocalDate()));
+					objetos.add(mapeador.apply(rs));
 				}
 
-				return personas;
+				return objetos;
 			} else {
 				return null;
 			}
