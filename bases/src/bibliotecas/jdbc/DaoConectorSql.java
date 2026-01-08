@@ -66,7 +66,7 @@ public class DaoConectorSql<T> implements Dao<T> {
 	public void borrar(Long id) {
 		String sql = String.format("DELETE FROM %s WHERE id=?", tabla);
 		
-		ejecutarSql(sql);
+		ejecutarSql(sql, id);
 	}
 
 }
