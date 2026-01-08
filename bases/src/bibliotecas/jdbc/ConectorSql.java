@@ -17,6 +17,12 @@ public class ConectorSql {
 
 	static {
 		try {
+			Class.forName("org.sqlite.JDBC");
+		} catch (ClassNotFoundException e) {
+			throw new DaoException("No se ha podido cargar el driver de JDBC");
+		}
+		
+		try {
 			Properties props = new Properties();
 			props.load(Fabrica.class.getClassLoader().getResourceAsStream("fabrica.properties"));
 
