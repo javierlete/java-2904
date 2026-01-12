@@ -42,11 +42,22 @@ async function refrescarLista() {
         const li = document.createElement('li');
 
         li.innerHTML = `${persona.id}: ${persona.nombre}, ${persona.fechaNacimiento}
+			<a href="javascript:editar(${persona.id})">[Editar]</a>
 			<a href="javascript:borrar(${persona.id})">[Borrar]</a>
 		`;
 
         ul.appendChild(li);
     }
+}
+
+async function editar(id) {
+	console.log('Editar', id);
+	
+	const respuesta = await fetch(URL + id);
+	const persona = await respuesta.json();
+	
+	form.nombre.value = persona.nombre;
+	form.fecha.value = persona.fechaNacimiento;
 }
 
 async function borrar(id) {
