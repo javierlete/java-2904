@@ -9,22 +9,40 @@ window.addEventListener('DOMContentLoaded', async () => {
 
     form = document.querySelector('form');
 
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const persona = { nombre: form.nombre.value, fechaNacimiento: form.fecha.value };
-
-        const respuesta = await fetch(URL, {
-			method: 'POST',
-			body: JSON.stringify(persona),
-			headers: {
-				'Content-type': 'application/json'
-			}
-		});
-		
-		respuesta.ok && await refrescarLista();
-    });
+    form.addEventListener('submit', guardar);
 });
+
+async function guardar(e) {
+    e.preventDefault();
+
+    const id = form['id'].value;
+
+	let url = URL;
+	
+	let metodo = 'POST';
+	
+    const persona = { nombre: form.nombre.value, fechaNacimiento: form.fecha.value };
+
+    if (id) {
+		persona.id = id;
+		
+		url += id;
+		
+		metodo = 'PUT';
+    }
+
+    const respuesta = await fetch(url, {
+        method: metodo,
+        body: JSON.stringify(persona),
+        headers: {
+            'Content-type': 'application/json'
+        }
+    });
+
+	form.reset();
+	
+    respuesta.ok && await refrescarLista();
+}
 
 async function refrescarLista() {
     const respuesta = await fetch(URL);
@@ -51,13 +69,14 @@ async function refrescarLista() {
 }
 
 async function editar(id) {
-	console.log('Editar', id);
-	
-	const respuesta = await fetch(URL + id);
-	const persona = await respuesta.json();
-	
-	form.nombre.value = persona.nombre;
-	form.fecha.value = persona.fechaNacimiento;
+    console.log('Editar', id);
+
+    const respuesta = await fetch(URL + id);
+    const persona = await respuesta.json();
+
+    form['id'].value = persona.id;
+    form.nombre.value = persona.nombre;
+    form.fecha.value = persona.fechaNacimiento;
 }
 
 async function borrar(id) {
