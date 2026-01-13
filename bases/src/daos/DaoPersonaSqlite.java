@@ -17,7 +17,7 @@ public class DaoPersonaSqlite extends DaoConectorSql<Persona> implements DaoPers
 
 	public DaoPersonaSqlite() {
 		super("personas", "nombre", "fecha_nacimiento");
-		
+
 		mapeador = mapeadorPersona;
 		mapeadorInverso = mapeadorPersonaInverso;
 	}
@@ -34,7 +34,8 @@ public class DaoPersonaSqlite extends DaoConectorSql<Persona> implements DaoPers
 
 	private Function<ResultSet, Persona> mapeadorPersona = rs -> {
 		try {
-			return new Persona(rs.getLong("id"), rs.getString("nombre"), rs.getDate("fecha_nacimiento").toLocalDate());
+			var fecha = rs.getDate("fecha_nacimiento");
+			return new Persona(rs.getLong("id"), rs.getString("nombre"), fecha != null ? fecha.toLocalDate() : null);
 		} catch (SQLException e) {
 			throw new DaoException("Error en el mapeado de persona", e);
 		}
@@ -47,17 +48,19 @@ public class DaoPersonaSqlite extends DaoConectorSql<Persona> implements DaoPers
 			throw new DaoException("Error en el mapeado de persona", e);
 		}
 	};
-	
+
 	private Function<Persona, Object[]> mapeadorPersonaInverso = p -> {
 		var lista = new ArrayList<Object>();
-		
+
 		lista.add(p.getNombre());
-		lista.add(java.sql.Date.valueOf(p.getFechaNacimiento()));
-		
-		if(p.getId() != null) {
+
+		var fecha = p.getFechaNacimiento();
+		lista.add(fecha != null ? java.sql.Date.valueOf(fecha) : null);
+
+		if (p.getId() != null) {
 			lista.add(p.getId());
 		}
-		
+
 		return lista.toArray();
 	};
 
