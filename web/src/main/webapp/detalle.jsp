@@ -21,7 +21,10 @@
 		<dd><%=persona.getFechaNacimiento()%></dd>
 
 		<dt>Edad</dt>
-		<dd><%=persona.getEdad().get()%></dd>
+		<%
+		var edad = persona.getEdad();
+		%>
+		<dd><%=edad.orElse(null)%></dd>
 	</dl>
 </body>
 </html>
