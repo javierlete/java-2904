@@ -1,6 +1,7 @@
 package com.ipartek.formacion.ejemplos.rest;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.util.Optional;
@@ -48,16 +49,22 @@ public class PersonaRestServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("application/json");
+		var out = response.getWriter();
+		
+		if ("/busquedas/buscar-por-nombre".equals(request.getPathInfo())) {
+			out.append(GSON.toJson(DAO.buscarPorNombre(request.getParameter("nombre"))));
+			return;
+		}
 
 		Long id = pedirId(request);
 
 		if (id == null) {
-			response.getWriter().append(GSON.toJson(DAO.obtenerTodos()));
+			out.append(GSON.toJson(DAO.obtenerTodos()));
 		} else {
 			Optional<Persona> persona = DAO.obtenerPorId(id);
 
 			if (persona.isPresent()) {
-				response.getWriter().append(GSON.toJson(persona.get()));
+				out.append(GSON.toJson(persona.get()));
 			} else {
 				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			}
@@ -69,32 +76,32 @@ public class PersonaRestServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("application/json");
-		
+
 		Persona persona = GSON.fromJson(request.getReader(), Persona.class);
-		
+
 		DAO.insertar(persona);
-		
+
 		response.getWriter().append(GSON.toJson(persona));
-		
+
 		response.setStatus(HttpServletResponse.SC_CREATED);
 	}
-	
+
 	@Override
 	protected void doPut(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("application/json");
-		
+
 		Long id = pedirId(request);
-		
+
 		Persona persona = GSON.fromJson(request.getReader(), Persona.class);
-		
-		if(id != persona.getId()) {
+
+		if (id != persona.getId()) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			return;
 		}
-		
+
 		DAO.modificar(persona);
-		
+
 		response.getWriter().append(GSON.toJson(persona));
 	}
 
@@ -102,7 +109,7 @@ public class PersonaRestServlet extends HttpServlet {
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		DAO.borrar(pedirId(request));
-		
+
 		response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	}
 
