@@ -24,7 +24,7 @@ public class DaoPersonaSqlite extends DaoConectorSql<Persona> implements DaoPers
 
 	@Override
 	public Collection<Persona> buscarPorNombre(String nombre) {
-		return ejecutarSql("SELECT * FROM personas WHERE nombre LIKE ?", mapeadorPersona, nombre);
+		return ejecutarSql("SELECT * FROM personas WHERE nombre LIKE ?", mapeadorPersona, "%" + nombre + "%");
 	}
 
 	@Override
