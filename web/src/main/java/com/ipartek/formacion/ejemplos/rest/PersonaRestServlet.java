@@ -1,7 +1,6 @@
 package com.ipartek.formacion.ejemplos.rest;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.util.Optional;
