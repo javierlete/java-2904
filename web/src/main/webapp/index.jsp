@@ -16,15 +16,29 @@ if (id != null && "borrar".equals(op)) {
 	dao.borrar(id);
 }
 
+String cId = "";
+String cNombre = "";
+String cFecha = "";
+
+if (id != null && "editar".equals(op)) {
+	var persona = dao.obtenerPorId(id).orElse(null);
+
+	if (persona != null) {
+		cId = id == null ? "" : String.valueOf(id);
+		cNombre = persona.getNombre();
+		cFecha = persona.getFechaNacimiento() != null ? persona.getFechaNacimiento().toString() : "";
+	}
+}
+
 if ("POST".equals(request.getMethod())) {
 	var nombre = request.getParameter("nombre");
 	var sFecha = request.getParameter("fecha");
-	
-	var fecha = sFecha.isBlank() ? null: LocalDate.parse(sFecha);
-	
-	var persona = new Persona(null, nombre, fecha);
-	
-	dao.insertar(persona);
+
+	var fecha = sFecha.isBlank() ? null : LocalDate.parse(sFecha);
+
+	var insercion = new Persona(null, nombre, fecha);
+
+	dao.insertar(insercion);
 }
 %>
 <!DOCTYPE html>
@@ -37,9 +51,9 @@ if ("POST".equals(request.getMethod())) {
 	<h1>Listado personas</h1>
 
 	<form method="post">
-		<input name="id" readonly placeholder="Id"> <input
-			name="nombre" required placeholder="Nombre"> <input name="fecha"
-			type="date">
+		<input name="id" readonly placeholder="Id" value="<%=cId%>"> <input
+			name="nombre" required placeholder="Nombre" value="<%=cNombre%>">
+		<input name="fecha" type="date" value="<%=cFecha%>">
 
 		<button>Guardar</button>
 		<button type="reset">Limpiar</button>
@@ -47,11 +61,12 @@ if ("POST".equals(request.getMethod())) {
 
 	<ul>
 		<%
-		for (var persona : dao.obtenerTodos()) {
+		for (var p : dao.obtenerTodos()) {
 		%>
-		<li><%=persona.getNombre()%> <a
-			href="detalle.jsp?id=<%=persona.getId()%>">[Detalle]</a> <a
-			href="index.jsp?op=borrar&id=<%=persona.getId()%>">[Borrar]</a></li>
+		<li><%=p.getNombre()%> <a
+			href="index.jsp?op=editar&id=<%=p.getId()%>">[Editar]</a><a
+			href="detalle.jsp?id=<%=p.getId()%>">[Detalle]</a> <a
+			href="index.jsp?op=borrar&id=<%=p.getId()%>">[Borrar]</a></li>
 		<%
 		}
 		%>
