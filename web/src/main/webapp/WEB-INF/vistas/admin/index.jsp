@@ -11,17 +11,17 @@
 	<table>
 		<thead>
 			<tr>
-				<th>Id</th>
-				<th>Nombre</th>
-				<th>Fecha de nacimiento</th>
-				<th>Edad</th>
-				<th>OPCIONES</th>
+				<th scope="col">Id</th>
+				<th scope="col">Nombre</th>
+				<th scope="col">Fecha de nacimiento</th>
+				<th scope="col">Edad</th>
+				<th scope="col">OPCIONES</th>
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach items="${personas}" var="persona" varStatus="estatus">
 				<tr>
-					<th>${persona.id}</th>
+					<th scope="row">${persona.id}</th>
 					<td>${persona.nombre}</td>
 					<td>${persona.fechaNacimiento}</td>
 					<td>${persona.edad.orElse(null)}</td>
