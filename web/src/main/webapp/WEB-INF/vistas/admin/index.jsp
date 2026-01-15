@@ -8,6 +8,9 @@
 <title>Administración</title>
 </head>
 <body>
+	<h1>${usuario}</h1>
+	<h1>${sessionScope.usuario}</h1>
+
 	<table>
 		<thead>
 			<tr>
