@@ -16,6 +16,7 @@ import oop.Persona;
 public class FormularioAdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 //		Recepción de datos de petición
@@ -42,6 +43,7 @@ public class FormularioAdminServlet extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/vistas/admin/formulario.jsp").forward(request, response);
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 //		Recepción de datos de petición
