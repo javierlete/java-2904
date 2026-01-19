@@ -1,15 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="jakarta.tags.core" prefix="c"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Administración</title>
-</head>
-<body>
-	<h1>${usuario}</h1>
-	<h1>${sessionScope.usuario}</h1>
+<%@ include file="/WEB-INF/vistas/includes/cabecera.jsp" %>
 
 	<table>
 		<thead>
@@ -44,5 +35,5 @@
 			</tr>
 		</tfoot>
 	</table>
-</body>
-</html>
+
+<%@ include file="/WEB-INF/vistas/includes/pie.jsp" %>
