@@ -10,7 +10,7 @@ import java.io.IOException;
 import bibliotecas.fabrica.Fabrica;
 import daos.DaoPersona;
 
-@WebServlet("/admin/index")
+@WebServlet({"/admin", "/admin/index"})
 public class IndexAdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
