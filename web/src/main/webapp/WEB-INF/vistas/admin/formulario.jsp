@@ -4,31 +4,21 @@
 
 <form method="post" class="needs-validation" novalidate>
 	<input type="hidden" name="id" value="${persona.id}">
-	<div class="row mb-3">
-		<label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
-		<div class="col-sm">
-			<input required type="text" class="form-control" id="nombre"
-				name="nombre" value="${persona.nombre}">
-			<div class="invalid-feedback">Debes introducir un nombre</div>
-		</div>
-	</div>
-	<div class="row mb-3">
-		<label for="fecha" class="col-sm-2 col-form-label">Fecha de
-			nacimiento</label>
-		<div class="col-sm">
-			<input required type="date" class="form-control" id="fecha"
-				name="fecha" value="${persona.fechaNacimiento}">
-			<div class="invalid-feedback">Debes introducir una fecha de
-				nacimiento</div>
-		</div>
-	</div>
+
+	<jl:label-input etiqueta="Nombre" nombre="nombre"
+		valor="${persona.nombre}" requerido="requerido"
+		error="Debes introducir un nombre" />
+	<jl:label-input etiqueta="Fecha de nacimiento" nombre="fecha"
+		tipo="date" valor="${persona.fechaNacimiento}" requerido="requerido"
+		error="Debes introducir una fecha de
+				nacimiento" />
 
 	<div class="row mb-3">
 		<div class="offset-sm-2 col-sm">
-			<button type="submit" class="btn btn-primary">Guardar</button>
+			<jl:boton etiqueta="Guardar" />
+			<jl:boton etiqueta="Restaurar" tipo="reset" color="danger" />
 		</div>
 	</div>
-
 </form>
 
 <script src="js/validacion-bootstrap.js"></script>

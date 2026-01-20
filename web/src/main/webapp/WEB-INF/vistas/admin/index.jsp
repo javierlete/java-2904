@@ -20,19 +20,18 @@
 					<td>${persona.nombre}</td>
 					<td class="text-center">${persona.fechaNacimiento}</td>
 					<td class="text-end">${persona.edad.orElse(null)}</td>
-					<td><a class="btn btn-sm btn-primary"
-						href="admin/formulario?id=${persona.id}"><i
-							class="bi bi-pencil-fill"></i></a> <a class="btn btn-sm btn-danger"
-						href="admin/borrar?id=${persona.id}"><i
-							class="bi bi-trash-fill"></i></a></td>
+					<td><jl:boton tipo="enlace" icono="pencil-fill"
+							enlace="admin/formulario?id=${persona.id}" /> <jl:boton
+							tipo="enlace" icono="trash-fill"
+							enlace="admin/borrar?id=${persona.id}" color="danger" /></td>
 				</tr>
 			</c:forEach>
 		</tbody>
 		<tfoot class="table-secondary">
 			<tr>
 				<td colspan="4"></td>
-				<td><a class="btn btn-sm btn-primary" href="admin/formulario"><i
-						class="bi bi-plus-lg"></i></a></td>
+				<td><jl:boton tipo="enlace" icono="plus-lg"
+						enlace="admin/formulario" color="success" /></td>
 			</tr>
 		</tfoot>
 	</table>
