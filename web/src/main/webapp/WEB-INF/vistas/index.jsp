@@ -17,6 +17,5 @@
 		</div>
 	</c:forEach>
 </div>
-${estatus.index} ${persona.nombre}
 
 <%@ include file="/WEB-INF/vistas/includes/pie.jsp"%>
