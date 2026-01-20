@@ -51,4 +51,4 @@
 		</div>
 	</nav>
 
-	<main class="container flex-grow-1 my-5">
+	<%="<main class='container flex-grow-1 my-5'>"%>
