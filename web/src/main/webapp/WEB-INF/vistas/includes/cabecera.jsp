@@ -5,12 +5,12 @@
 <!DOCTYPE html>
 <html class="h-100">
 <head>
-<base href="${pageContext.request.contextPath}/">
+<base href="${pageContext.request.contextPath}/cf/">
 <meta charset="UTF-8">
 <title>Personas</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/bootstrap-icons.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-icons.min.css">
 <link rel="icon" href="imgs/person-circle.svg">
 </head>
 <body class="h-100 d-flex flex-column">
