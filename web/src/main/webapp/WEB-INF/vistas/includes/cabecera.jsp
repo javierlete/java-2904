@@ -16,7 +16,7 @@
 <body class="h-100 d-flex flex-column">
 	<nav class="navbar navbar-expand-sm bg-dark" data-bs-theme="dark">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="#">Personas</a>
+			<a class="navbar-brand" href="index">Personas</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"

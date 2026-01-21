@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebFilter("/admin/*")
+@WebFilter({"/admin/*", "/cf/admin/*"})
 public class AdminFilter extends HttpFilter {
 
 	private static final long serialVersionUID = 3257576231549003718L;
