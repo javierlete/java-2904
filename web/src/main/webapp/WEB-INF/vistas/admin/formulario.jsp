@@ -21,6 +21,6 @@
 	</div>
 </form>
 
-<script src="js/validacion-bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/js/validacion-bootstrap.js"></script>
 
 <%@ include file="/WEB-INF/vistas/includes/pie.jsp"%>

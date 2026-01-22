@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-icons.min.css">
-<link rel="icon" href="imgs/person-circle.svg">
+<link rel="icon" href="${pageContext.request.contextPath}/imgs/person-circle.svg">
 </head>
 <body class="h-100 d-flex flex-column">
 	<nav class="navbar navbar-expand-sm bg-dark" data-bs-theme="dark">
@@ -31,7 +31,7 @@
 				<ul class="navbar-nav mb-2 mb-sm-0">
 					<c:choose>
 						<c:when test="${sessionScope.usuario != null}">
-							<li class="nav-item"><a class="nav-link" href="admin">Admin</a></li>
+							<li class="nav-item"><a class="nav-link" href="admin/index">Admin</a></li>
 							<li class="navbar-text">${sessionScope.usuario}</li>
 							<li class="nav-item"><a class="nav-link" href="logout">Cerrar
 									sesión</a></li>

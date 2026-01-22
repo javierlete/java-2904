@@ -22,7 +22,7 @@ public class AdminFilter extends HttpFilter {
 		var usuario = (String)session.getAttribute("usuario");
 		
 		if(usuario == null) {
-			response.sendRedirect(request.getContextPath() + "/login");
+			response.sendRedirect(request.getContextPath() + "/cf/login");
 			return;
 		}
 		
