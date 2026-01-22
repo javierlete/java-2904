@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 import bibliotecas.fabrica.Fabrica;
 import jakarta.servlet.ServletException;
@@ -21,11 +22,13 @@ import jakarta.servlet.http.HttpServletResponse;
 public class ControladorFrontalServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	private static final Logger LOG = Logger.getLogger(ControladorFrontalServlet.class.getName());
+
 	public static final String COMANDO_SESION = "SESION";
 	public static final String COMANDO_SESION_INVALIDAR = "INVALIDAR";
 
 	public static final Properties PROPS = new Properties();
-	
+
 	static {
 		try {
 			PROPS.load(Fabrica.class.getClassLoader().getResourceAsStream("fabrica.properties"));
@@ -33,7 +36,7 @@ public class ControladorFrontalServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static record Interaccion(String metodo, Map<String, String[]> entrada, Map<String, Object> modelo,
 			Map<String, Object> sesion) {
 
@@ -45,6 +48,8 @@ public class ControladorFrontalServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		var path = request.getPathInfo();
+		
 		var metodoHttp = request.getMethod();
 
 		var entrada = request.getParameterMap();
@@ -53,23 +58,24 @@ public class ControladorFrontalServlet extends HttpServlet {
 
 		var interaccion = new Interaccion(metodoHttp, entrada, modelo, sesion);
 
-		var metodo = buscarMetodoPorValorAnotacion(PROPS.getProperty("acciones"), Ruta.class,
-				request.getPathInfo());
+		var metodo = buscarMetodoPorValorAnotacion(PROPS.getProperty("acciones"), Ruta.class, path);
 
-		System.out.println(metodo);
-		
 		String ruta = null;
 
 		if (metodo != null) {
+			LOG.info(metodo.toString());
+
 			try {
 				ruta = (String) metodo.invoke(null, interaccion);
-				
-				System.out.println(ruta);
+
+				LOG.info(ruta);
 			} catch (IllegalAccessException | InvocationTargetException e) {
 				e.printStackTrace();
 				return;
 			}
 		} else {
+			LOG.severe(path + ": Método no encontrado");
+			
 			error(interaccion);
 		}
 
