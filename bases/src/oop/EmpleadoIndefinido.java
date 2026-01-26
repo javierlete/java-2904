@@ -3,8 +3,12 @@ package oop;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.util.Objects;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+@Data
+@EqualsAndHashCode(callSuper = true)
 public class EmpleadoIndefinido extends Empleado {
 	private BigDecimal sueldoAnual;
 	private Integer numeroPagas;
@@ -14,49 +18,6 @@ public class EmpleadoIndefinido extends Empleado {
 		super(id, nombre, fechaNacimiento, dni, numeroSeguridadSocial);
 		this.sueldoAnual = sueldoAnual;
 		this.numeroPagas = numeroPagas;
-	}
-
-	public BigDecimal getSueldoAnual() {
-		return sueldoAnual;
-	}
-
-	public void setSueldoAnual(BigDecimal sueldoAnual) {
-		this.sueldoAnual = sueldoAnual;
-	}
-
-	public Integer getNumeroPagas() {
-		return numeroPagas;
-	}
-
-	public void setNumeroPagas(Integer numeroPagas) {
-		this.numeroPagas = numeroPagas;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + Objects.hash(numeroPagas, sueldoAnual);
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		EmpleadoIndefinido other = (EmpleadoIndefinido) obj;
-		return Objects.equals(numeroPagas, other.numeroPagas) && Objects.equals(sueldoAnual, other.sueldoAnual);
-	}
-
-	@Override
-	public String toString() {
-		return String.format(
-				"EmpleadoIndefinido [sueldoAnual=%s, numeroPagas=%s, dni=%s, numeroSeguridadSocial=%s, id=%s, nombre=%s, fechaNacimiento=%s]",
-				sueldoAnual, numeroPagas, dni, numeroSeguridadSocial, id, nombre, fechaNacimiento);
 	}
 
 	@Override
