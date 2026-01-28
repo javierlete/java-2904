@@ -33,7 +33,7 @@ public class Usuario {
 	private Long id;
 	
 	@Column(columnDefinition = "CHAR(9)")
-	@Pattern(regexp = "[\\dXYZ]\\d{7}[A-Z]")
+	@Pattern(regexp = "[\\dXYZ]\\d{7}[A-Z]", message = "debe tener un formato de 8 dígitos y una letra o letra, 7 dígitos y otra letra")
 	private String dni;
 	
 	@NotBlank
@@ -47,7 +47,7 @@ public class Usuario {
 	
 	@NotBlank
 	@Size(max = 255)
-	@Pattern(regexp = ".{3,}")
+	@Pattern(regexp = ".{3,}", message = "debe tener como mínimo tres caracteres")
 	private String password;
 	
 	@Column(name = "fecha_nacimiento")
