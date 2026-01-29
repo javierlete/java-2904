@@ -6,13 +6,15 @@
 	<persistence-unit
 		name="com.ipartek.formacion.ejemplos.ipartube.entidades">
 		<class>com.ipartek.formacion.ejemplos.ipartube.entidades.Usuario</class>
+		<class>com.ipartek.formacion.ejemplos.ipartube.entidades.Video</class>
 
 		<properties>
 			<!-- Database connection settings -->
 			<property name="jakarta.persistence.jdbc.url"
-				value="jdbc:sqlite:ipartube.db" />
+				value="jdbc:sqlite:ipartube.db?foreign_keys=on" />
 			<property name="jakarta.persistence.jdbc.user" value="" />
 			<property name="jakarta.persistence.jdbc.password" value="" />
+			
 
 			<!-- Automatically export the schema -->
 			<property
@@ -20,9 +22,12 @@
 				value="create-drop" />
 
 			<!-- Echo all executed SQL to console -->
-			<property name="hibernate.show_sql" value="false" />
-			<property name="hibernate.format_sql" value="false" />
-			<property name="hibernate.highlight_sql" value="false" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.highlight_sql" value="true" />
+
+			<!-- Activar las foreign keys en SQLite -->
+			<property name="hibernate.connection.init_sql" value="PRAGMA foreign_keys=ON"/>
 		</properties>
 
 	</persistence-unit>

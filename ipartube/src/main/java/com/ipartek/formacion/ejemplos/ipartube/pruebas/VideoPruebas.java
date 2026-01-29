@@ -26,7 +26,7 @@ public class VideoPruebas {
 		
 		System.out.println(video3);
 		
-		var video4 = Video.builder().titulo("Título 4").usuario(Usuario.builder().nombre("Pepe").build()).videoUrl("https://videoURL").build();
+		var video4 = Video.builder().titulo("Título 4").propietario(Usuario.builder().nombre("Pepe").build()).videoUrl("https://videoURL").build();
 		
 		System.out.println(video4);
 	}
