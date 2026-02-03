@@ -5,6 +5,10 @@ import java.time.Period;
 import java.util.Collection;
 import java.util.Optional;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -50,6 +54,7 @@ public class Usuario {
 	@Column(unique = true)
 	private String email;
 	
+	@JsonProperty(access = Access.WRITE_ONLY)
 	@NotBlank
 	@Size(max = 255)
 	@Pattern(regexp = ".{3,}", message = "debe tener como mínimo tres caracteres")
@@ -59,6 +64,7 @@ public class Usuario {
 	@PastOrPresent
 	private LocalDate fechaNacimiento;
 	
+	@JsonIgnore
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	@OneToMany(mappedBy = "propietario")
