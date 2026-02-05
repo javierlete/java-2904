@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>
+		Hola <span th:text="${nombre}">Juan</span> <span
+			th:if="${nombre == 'Javier'}">Profe</span>
+	</h1>
+
+	<form>
+		<input name="nombre">
+		<button>Salúdame</button>
+	</form>
+
+	<ul>
+		<li th:each="u: ${usuarios}" th:text="${u.nombre}">Dato</li>
+	</ul>
+</body>
+</html>
