@@ -1,18 +1,40 @@
 <!DOCTYPE html>
-<html th:fragment="plantilla (titulo, contenido)" xmlns:th="http://www.thymeleaf.org">
+<html class="h-100" th:fragment="plantilla (titulo, contenido)" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:replace="${titulo}">IparTube</title>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap-icons.min.css" th:href="@{/css/bootstrap-icons.min.css}">
+    <link rel="icon" href="../static/imgs/logo.svg" th:href="@{/imgs/logo.svg}">
 </head>
-<body>
-    <h1>IparTube</h1>
+<body class="h-100 d-flex flex-column">
+    <nav class="navbar navbar-expand-sm bg-dark" data-bs-theme="dark">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="index.html" th:href="@{/}"><i class="bi bi-play-btn-fill"></i> IparTube</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-sm-0">
+					<li class="nav-item"><a class="nav-link" href="index.html" th:href="@{/}">Principal</a></li>
+					<li class="nav-item"><a class="nav-link" href="ejemplo.html" th:href="@{/ejemplo}">Ejemplo</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
     
-    <main th:replace="${contenido}">
-        <p>CONTENIDO</p>
-    </main>
+    <div class="container flex-grow-1 my-5">
+        <main th:replace="${contenido}">CONTENIDO</main>
+    </div>
     
-    <footer>
+    <footer class="text-bg-dark p-2">
 		&copy;2026 Javier Lete
     </footer>
+
+    <script src="../static/js/bootstrap.bundle.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

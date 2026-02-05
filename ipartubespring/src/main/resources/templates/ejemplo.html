@@ -9,11 +9,11 @@
 	</h1>
 
 	<form>
-		<input name="nombre">
-		<button>Salúdame</button>
+		<input class="form-control" name="nombre">
+		<button class="btn btn-primary">Salúdame</button>
 	</form>
 
-	<ul>
+	<ul class="list-unstyled">
 		<li th:each="u: ${usuarios}" th:text="${u.nombre}">Dato</li>
 	</ul>
 </main>
