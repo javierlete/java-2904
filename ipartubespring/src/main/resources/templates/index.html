@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html th:replace="~{_global :: plantilla(~{::title}, ~{::main})}"
+	xmlns:th="https://www.thymeleaf.org">
+<title>Videos</title>
+<main>
+	<div class="row row-cols-1 row-cols-md-3 g-4">
+		<div th:object="${video}" th:each="video: ${videos}" class="col">
+			<div class="card h-100">
+				<img th:src="*{imagenUrl}" src="https://picsum.photos/400/300" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">[[*{titulo}]]</h5>
+					<p th:text="*{descripcion}" class="card-text">BLA BLA BLA</p>
+				</div>
+				<div class="card-footer">
+					<small th:text="${#temporals.format(video.fechaHora, 'dd/MMM/yyyy HH:mm')}" class="text-body-secondary">FECHA</small>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
