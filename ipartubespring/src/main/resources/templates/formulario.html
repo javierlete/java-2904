@@ -3,29 +3,33 @@
 	xmlns:th="https://www.thymeleaf.org">
 <title>Añadir nuevo video</title>
 <main>
-	<form method="post" th:action="@{/anadir-video}">
+	<form method="post" th:action="@{/anadir-video}" th:object="${video}">
 		<div class="row mb-3">
 			<label for="titulo" class="col-sm-2 col-form-label">Título</label>
 			<div class="col-sm">
-				<input type="text" class="form-control" id="titulo" name="titulo">
+				<input type="text" class="form-control" th:field="*{titulo}">
+				<div class="text-danger" th:errors="*{titulo}"></div>
 			</div>
 		</div>
 		<div class="row mb-3">
 			<label for="descripcion" class="col-sm-2 col-form-label">Descripción</label>
 			<div class="col-sm">
-				<textarea class="form-control" id="descripcion" name="descripcion"></textarea>
+				<textarea class="form-control" th:field="*{descripcion}"></textarea>
+				<div class="text-danger" th:errors="*{descripcion}"></div>
 			</div>
 		</div>
 		<div class="row mb-3">
-			<label for="imagen" class="col-sm-2 col-form-label">Imagen</label>
+			<label for="imagenUrl" class="col-sm-2 col-form-label">Imagen</label>
 			<div class="col-sm">
-				<input type="text" class="form-control" id="imagen" name="imagenUrl">
+				<input type="text" class="form-control" th:field="*{imagenUrl}">
+				<div class="text-danger" th:errors="*{imagenUrl}"></div>
 			</div>
 		</div>
 		<div class="row mb-3">
-			<label for="video" class="col-sm-2 col-form-label">Video</label>
+			<label for="videoUrl" class="col-sm-2 col-form-label">Video</label>
 			<div class="col-sm">
-				<input type="text" class="form-control" id="video" name="videoUrl">
+				<input type="text" class="form-control" th:field="*{videoUrl}">
+				<div class="text-danger" th:errors="*{videoUrl}"></div>
 			</div>
 		</div>
 		<div class="row mb-3">

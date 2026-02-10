@@ -2,6 +2,8 @@ package com.ipartek.formacion.ejemplos.ipartube.entidades;
 
 import java.time.LocalDateTime;
 
+import com.ipartek.formacion.ejemplos.ipartube.gruposvalidacion.NuevoVideo;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,23 +32,23 @@ public class Video {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank
-	@Size(max = 255)
+	@NotBlank(groups = {NuevoVideo.class})
+	@Size(max = 255, groups = {NuevoVideo.class})
 	private String titulo;
 	
 	@Lob
-	@Size(max = 2000)
+	@Size(max = 2000, groups = {NuevoVideo.class})
 	private String descripcion;
 	
-	@PastOrPresent
+	@PastOrPresent(groups = {NuevoVideo.class})
 	@Builder.Default
 	private LocalDateTime fechaHora = LocalDateTime.now();
 	
-	@Size(max = 255)
+	@Size(max = 255, groups = {NuevoVideo.class})
 	private String imagenUrl;
 	
-	@NotBlank
-	@Size(max = 255)
+	@NotBlank(groups = {NuevoVideo.class})
+	@Size(max = 255, groups = {NuevoVideo.class})
 	private String videoUrl;
 	
 	@NotNull

@@ -53,7 +53,12 @@ public class RepositoriosConsola implements CommandLineRunner {
 				.imagenUrl("https://i.ytimg.com/vi_webp/OPf0YbXqDm0/sddefault.webp")
 				.videoUrl("https://www.youtube.com/embed/OPf0YbXqDm0").build();
 		
-		videoRepository.saveAll(List.of(video8bbb, videoSmoke, videoBruno));
+		var videoMichael = Video.builder().propietario(juan).titulo("Smooth Criminal")
+				.descripcion("Michael Jackson inclinado de Pisa")
+				.imagenUrl("https://i.ytimg.com/vi_webp/h_D3VFfhvs4/sddefault.webp")
+				.videoUrl("https://www.youtube.com/embed/h_D3VFfhvs4").build();
+		
+		videoRepository.saveAll(List.of(video8bbb, videoSmoke, videoBruno, videoMichael));
 		
 
 //		for (int i = 1; i <= 5; i++) {
