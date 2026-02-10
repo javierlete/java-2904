@@ -48,8 +48,12 @@ public class RepositoriosConsola implements CommandLineRunner {
 				.imagenUrl("https://i.ytimg.com/vi_webp/Q2FzZSBD5LE/sddefault.webp")
 				.videoUrl("https://www.youtube.com/embed/Q2FzZSBD5LE").build();
 
+		var videoBruno = Video.builder().propietario(pepe).titulo("Uptown Funk")
+				.descripcion("Funk de Bruno Mars")
+				.imagenUrl("https://i.ytimg.com/vi_webp/OPf0YbXqDm0/sddefault.webp")
+				.videoUrl("https://www.youtube.com/embed/OPf0YbXqDm0").build();
 		
-		videoRepository.saveAll(List.of(video8bbb, videoSmoke));
+		videoRepository.saveAll(List.of(video8bbb, videoSmoke, videoBruno));
 		
 
 //		for (int i = 1; i <= 5; i++) {
