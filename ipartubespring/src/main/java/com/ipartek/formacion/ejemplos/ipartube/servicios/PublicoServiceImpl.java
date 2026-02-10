@@ -26,4 +26,9 @@ public class PublicoServiceImpl implements PublicoService {
 		return videoRepository.findById(id).get();
 	}
 
+	@Override
+	public Video guardarVideo(Video video) {
+		return videoRepository.save(video);
+	}
+
 }

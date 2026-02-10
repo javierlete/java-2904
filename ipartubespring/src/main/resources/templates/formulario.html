@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html th:replace="~{_global :: plantilla(~{::title}, ~{::main})}"
+	xmlns:th="https://www.thymeleaf.org">
+<title>Añadir nuevo video</title>
+<main>
+	<form method="post" th:action="@{/anadir-video}">
+		<div class="row mb-3">
+			<label for="titulo" class="col-sm-2 col-form-label">Título</label>
+			<div class="col-sm">
+				<input type="text" class="form-control" id="titulo" name="titulo">
+			</div>
+		</div>
+		<div class="row mb-3">
+			<label for="descripcion" class="col-sm-2 col-form-label">Descripción</label>
+			<div class="col-sm">
+				<textarea class="form-control" id="descripcion" name="descripcion"></textarea>
+			</div>
+		</div>
+		<div class="row mb-3">
+			<label for="imagen" class="col-sm-2 col-form-label">Imagen</label>
+			<div class="col-sm">
+				<input type="text" class="form-control" id="imagen" name="imagenUrl">
+			</div>
+		</div>
+		<div class="row mb-3">
+			<label for="video" class="col-sm-2 col-form-label">Video</label>
+			<div class="col-sm">
+				<input type="text" class="form-control" id="video" name="videoUrl">
+			</div>
+		</div>
+		<div class="row mb-3">
+			<div class="offset-sm-2 col-sm">
+				<button class="btn btn-primary">Guardar</button>
+			</div>
+		</div>
+	</form>
+</main>

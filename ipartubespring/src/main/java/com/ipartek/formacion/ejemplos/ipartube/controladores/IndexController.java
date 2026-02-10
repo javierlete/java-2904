@@ -5,8 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ipartek.formacion.ejemplos.ipartube.entidades.Usuario;
+import com.ipartek.formacion.ejemplos.ipartube.entidades.Video;
 import com.ipartek.formacion.ejemplos.ipartube.servicios.PublicoService;
 
 @Controller
@@ -14,20 +17,34 @@ import com.ipartek.formacion.ejemplos.ipartube.servicios.PublicoService;
 public class IndexController {
 	@Autowired
 	private PublicoService publicoService;
-	
+
 	@GetMapping
 	public String index(Model modelo) {
 		modelo.addAttribute("videos", publicoService.obtenerVideos());
-		
+
 		return "index";
 	}
-	
+
 	@GetMapping("detalle/{id}")
 	public String detalle(@PathVariable Long id, Model modelo) {
 		System.out.println(id);
-		
+
 		modelo.addAttribute("video", publicoService.obtenerDetalleVideo(id));
-		
+
 		return "detalle";
+	}
+
+	@GetMapping("anadir-video")
+	public String formulario() {
+		return "formulario";
+	}
+
+	@PostMapping("anadir-video")
+	public String formularioPost(Video video) {
+		video.setPropietario(Usuario.builder().id(1L).build());
+		
+		publicoService.guardarVideo(video);
+		
+		return "redirect:/";
 	}
 }
