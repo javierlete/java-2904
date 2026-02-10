@@ -21,4 +21,9 @@ public class PublicoServiceImpl implements PublicoService {
 		return videoRepository.findAll();
 	}
 
+	@Override
+	public Video obtenerDetalleVideo(Long id) {
+		return videoRepository.findById(id).get();
+	}
+
 }

@@ -9,9 +9,10 @@
 				<img th:src="*{imagenUrl}" src="https://picsum.photos/400/300" class="card-img-top" alt="...">
 				<div class="card-body">
 					<h5 class="card-title">[[*{titulo}]]</h5>
-					<p th:text="*{descripcion}" class="card-text">BLA BLA BLA</p>
+					<a class="btn btn-primary w-100 stretched-link" href="detalle.html" th:href="@{/detalle/{id}(id=*{id})}">Ver video</a>
 				</div>
-				<div class="card-footer">
+				<div class="card-footer d-flex justify-content-between">
+					<small th:text="*{propietario.nombre}" class="text-body-secondary">USUARIO</small>
 					<small th:text="${#temporals.format(video.fechaHora, 'dd/MMM/yyyy HH:mm')}" class="text-body-secondary">FECHA</small>
 				</div>
 			</div>

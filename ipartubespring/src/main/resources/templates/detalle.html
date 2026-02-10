@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html th:replace="~{_global :: plantilla(~{::title}, ~{::main})}"
+	xmlns:th="https://www.thymeleaf.org">
+<title th:text="${video.titulo}">TITULO</title>
+<main>
+	<div class="card" th:object="${video}">
+		<div class="ratio ratio-16x9">
+			<iframe src="https://www.youtube.com" th:src="*{videoUrl}"
+				title="YouTube video player"
+				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+				referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+		</div>
+		<div class="card-body">
+			<div class="d-flex justify-content-between">
+				<h5 class="card-title" th:text="*{titulo}">Card title</h5>
+				<p th:text="${#temporals.format(video.fechaHora, 'dd/MMM/yyyy HH:mm')}">FECHA</p>
+			</div>
+			<p class="lead" th:text="*{propietario.nombre}">PROPIETARIO</p>
+			<p class="card-text" th:text="*{descripcion}">Some quick example
+				text to build on the card title and make up the bulk of the card’s
+				content.</p>
+		</div>
+	</div>
+</main>

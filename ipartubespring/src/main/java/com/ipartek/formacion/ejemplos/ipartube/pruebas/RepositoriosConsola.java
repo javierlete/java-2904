@@ -16,7 +16,7 @@ public class RepositoriosConsola implements CommandLineRunner {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-	
+
 	@Autowired
 	private VideoRepository videoRepository;
 
@@ -29,7 +29,7 @@ public class RepositoriosConsola implements CommandLineRunner {
 		var pepe = Usuario.builder().nombre("Pepe").email("pepe@email.net").password("pepe").build();
 		var juan = Usuario.builder().nombre("Juan").email("juan@email.net").password("juan").build();
 		var pedro = Usuario.builder().nombre("Pedro").email("pedro@email.net").password("pedro").build();
-		
+
 		usuarioRepository.saveAll(List.of(pepe, juan, pedro));
 
 		for (var usuario : usuarioRepository.findAll()) {
@@ -38,9 +38,25 @@ public class RepositoriosConsola implements CommandLineRunner {
 
 		System.out.println(usuarioRepository.findByEmail("juan@email.net"));
 
-		var video1 = Video.builder().propietario(pedro).titulo("Prueba 1").videoUrl("http://video").build();
+		var video8bbb = Video.builder().propietario(javier).titulo("Concierto Diciembre 2025 8BBB")
+				.descripcion("Concierto de la 8 Bit Big Band en directo con sus últimos temas")
+				.imagenUrl("https://i.ytimg.com/vi_webp/mzjqdhWxg8M/sddefault.webp")
+				.videoUrl("https://www.youtube.com/embed/mzjqdhWxg8M").build();
 		
-		videoRepository.save(video1);
+		var videoSmoke = Video.builder().propietario(pepe).titulo("Smoke on the Water")
+				.descripcion("Video del 50 aniversario del tema")
+				.imagenUrl("https://i.ytimg.com/vi_webp/Q2FzZSBD5LE/sddefault.webp")
+				.videoUrl("https://www.youtube.com/embed/Q2FzZSBD5LE").build();
+
+		
+		videoRepository.saveAll(List.of(video8bbb, videoSmoke));
+		
+
+//		for (int i = 1; i <= 5; i++) {
+//			var video = Video.builder().propietario(pedro).titulo("Prueba " + i).imagenUrl("https://picsum.photos/400/300?" + i).videoUrl("http://video" + i).build();
+//
+//			videoRepository.save(video);
+//		}
 	}
 
 }
