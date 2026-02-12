@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Restaurante Spring Thymeleaf</title>
+</head>
+<body>
+	<h1>Restaurante Spring Thymeleaf</h1>
+
+	<form th:action="@{/cliente/pedir}" method="post">
+		<ul>
+			<li th:object="${menu}" th:each="menu: ${menus}"><input
+				type="checkbox" name="ids" th:value="*{id}"> <span
+				th:text="*{nombre}">NOMBRE</span>: <span th:text="*{precio}">PRECIO</span>
+			</li>
+		</ul>
+		
+		<button>Pedir</button>
+	</form>
+
+</body>
+</html>
