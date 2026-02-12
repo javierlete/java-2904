@@ -2,6 +2,7 @@ package com.ipartek.formacion.ejemplos.restaurantespring.entidades;
 //Lombok
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import jakarta.persistence.Entity;
@@ -37,7 +38,8 @@ public class Pedido {
 
 	@NotEmpty
 	@ManyToMany
-	private Collection<Menu> menus;
+	@Builder.Default
+	private Collection<Menu> menus = new ArrayList<>();
 
 	public BigDecimal getTotal() {
 		return menus.stream().map(menu -> menu.getPrecio()).reduce(BigDecimal.ZERO,
