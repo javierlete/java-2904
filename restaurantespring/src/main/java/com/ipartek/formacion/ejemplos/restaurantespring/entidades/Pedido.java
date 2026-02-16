@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -37,7 +38,7 @@ public class Pedido {
 	private Cliente cliente;
 
 	@NotEmpty
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@Builder.Default
 	private Collection<Menu> menus = new ArrayList<>();
 
