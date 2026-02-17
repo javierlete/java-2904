@@ -7,18 +7,24 @@
 <body>
 	<h1>Pedidos del Restaurante Spring Thymeleaf</h1>
 
-	<dl>
-		<th:block th:object="${pedido}" th:each="pedido: ${pedidos}">
-			<dt th:text="*{cliente.nombre}">CLIENTE</dt>
-			<dd>
-				<ul>
-					<li th:object="${menu}" th:each="menu: *{menus}"><span
-						th:text="*{nombre}">NOMBRE</span>: <span th:text="*{precio}">PRECIO</span>
-					</li>
-				</ul>
-			</dd>
-		</th:block>
-	</dl>
+	<table>
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Cliente</th>
+				<th>Menú</th>
+				<th>Precio</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:object="${pedido}" th:each="pedido: ${pedidos}">
+				<th th:text="*{id}">1</th>
+				<td th:text="*{cliente}">Pepe</td>
+				<td th:text="*{menu}">Burguer</td>
+				<td th:text="*{precio}">123</td>
+			</tr>
+		</tbody>
+	</table>
 
 </body>
 </html>
