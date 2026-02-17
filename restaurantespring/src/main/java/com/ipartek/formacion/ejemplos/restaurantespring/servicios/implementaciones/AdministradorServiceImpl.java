@@ -18,7 +18,7 @@ public class AdministradorServiceImpl implements AdministradorService {
 	
 	@Override
 	public Iterable<Pedido> listadoPedidos() {
-		return pedidoRepository.findAll();
+		return pedidoRepository.pedidosConMenus(); //findAll();
 	}
 
 }
