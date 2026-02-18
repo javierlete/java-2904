@@ -1,11 +1,25 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
 <meta charset="UTF-8">
 <title>Restaurante Spring Thymeleaf</title>
 </head>
 <body>
 	<h1>Restaurante Spring Thymeleaf</h1>
+
+	<ul>
+		<li sec:authorize="isAuthenticated()">Logged user: <span sec:authentication="name">Bob</span></li>
+		<li sec:authorize="isAuthenticated()">Roles: <span
+			sec:authentication="principal.authorities">[ROLE_USER,
+			ROLE_ADMIN]</span></li>
+		<li sec:authorize="isAuthenticated()">
+			<a th:href="@{/logout}">Cerrar sesión</a>
+		</li>
+		<li sec:authorize="hasRole('ROLE_ADMINISTRADOR')">
+			<a th:href="@{/admin/pedidos}">Listado Pedidos como administrador</a>
+		</li>
+	</ul>
 
 	<form th:action="@{/cliente/pedir}" method="post">
 		<ul>
@@ -14,7 +28,7 @@
 				th:text="*{nombre}">NOMBRE</span>: <span th:text="*{precio}">PRECIO</span>
 			</li>
 		</ul>
-		
+
 		<button>Pedir</button>
 	</form>
 
