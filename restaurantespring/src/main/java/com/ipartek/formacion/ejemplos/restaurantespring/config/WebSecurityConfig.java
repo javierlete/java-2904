@@ -21,7 +21,25 @@ class WebSecurityConfig {
 	// Autenticación
 	@Bean
 	UserDetailsService userDetailsService(PasswordEncoder encoder, DataSource dataSource) {
-		return new JdbcUserDetailsManager(dataSource);
+		var jdbc = new JdbcUserDetailsManager(dataSource);
+
+		jdbc.setUsersByUsernameQuery("""
+				SELECT email, password, 1
+				FROM clientes
+				WHERE email = ?
+				""");
+		
+		jdbc.setAuthoritiesByUsernameQuery("""
+				SELECT email, 
+					CASE 
+						WHEN email = 'javier@email.net' THEN 'ROLE_ADMINISTRADOR'
+						ELSE 'ROLE_USUARIO' 
+					END AS rol
+				FROM clientes
+				WHERE email = ?
+				""");
+		
+		return jdbc;
 	}
 
 	@Bean
