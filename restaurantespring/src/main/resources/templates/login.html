@@ -6,8 +6,11 @@
 </head>
 <body>
 
+<p th:if="${param.error}">Usuario o contraseña incorrectos</p>
+<p th:if="${param.logout}">Cierre de sesión correcto</p>
+
 <form th:action="@{/login}" method="post">
-	<input name="email" placeholder="Email">
+	<input name="username" placeholder="Email">
 	<input name="password" placeholder="Contraseña">
 
 	<button>Iniciar sesión</button>

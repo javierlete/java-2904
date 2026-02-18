@@ -14,7 +14,9 @@
 			sec:authentication="principal.authorities">[ROLE_USER,
 			ROLE_ADMIN]</span></li>
 		<li sec:authorize="isAuthenticated()">
-			<a th:href="@{/logout}">Cerrar sesión</a>
+			<form th:action="@{/logout}" method="post">
+				<button>Cerrar sesión</button>
+			</form>
 		</li>
 		<li sec:authorize="hasRole('ROLE_ADMINISTRADOR')">
 			<a th:href="@{/admin/pedidos}">Listado Pedidos como administrador</a>

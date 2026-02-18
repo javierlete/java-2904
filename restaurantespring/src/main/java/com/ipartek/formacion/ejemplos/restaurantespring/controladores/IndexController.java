@@ -1,14 +1,10 @@
 package com.ipartek.formacion.ejemplos.restaurantespring.controladores;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.ipartek.formacion.ejemplos.restaurantespring.entidades.Cliente;
 import com.ipartek.formacion.ejemplos.restaurantespring.servicios.implementaciones.AnonimoServiceImpl;
 
 import lombok.RequiredArgsConstructor;
@@ -32,16 +28,5 @@ public class IndexController {
 	@GetMapping("login")
 	public String login() {
 		return "login";
-	}
-	
-	@PostMapping("login")
-	public String loginPost(Cliente cliente) {
-		Optional<Cliente> autenticado = anonimoService.autenticar(cliente);
-		
-		if(autenticado.isEmpty()) {
-			return "redirect:/login";
-		}
-		
-		return "redirect:/";
 	}
 }
