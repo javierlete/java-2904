@@ -9,10 +9,9 @@
 	<h1>Restaurante Spring Thymeleaf</h1>
 
 	<ul>
-		<li sec:authorize="isAuthenticated()">Logged user: <span sec:authentication="name">Bob</span></li>
+		<li sec:authorize="isAuthenticated()">Usuario: <span sec:authentication="name">ANÓNIMO</span></li>
 		<li sec:authorize="isAuthenticated()">Roles: <span
-			sec:authentication="principal.authorities">[ROLE_USER,
-			ROLE_ADMIN]</span></li>
+			sec:authentication="principal.authorities">NINGÚN ROL</span></li>
 		<li sec:authorize="isAuthenticated()">
 			<form th:action="@{/logout}" method="post">
 				<button>Cerrar sesión</button>
