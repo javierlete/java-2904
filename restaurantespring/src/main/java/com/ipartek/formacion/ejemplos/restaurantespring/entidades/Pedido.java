@@ -2,6 +2,7 @@ package com.ipartek.formacion.ejemplos.restaurantespring.entidades;
 //Lombok
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -33,6 +34,10 @@ public class Pedido {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NotNull
+	@Builder.Default
+	private LocalDateTime fechaHora = LocalDateTime.now();
+	
 	@NotNull
 	@ManyToOne
 	private Cliente cliente;

@@ -11,6 +11,9 @@
 		<dt>Número de pedido</dt>
 		<dd th:text="${pedido.id}">1</dd>
 		
+		<dt>Fecha</dt>
+		<dd th:text="${#temporals.format(pedido.fechaHora, 'dd/MMM/yyyy HH:mm')}">2026-01-02</dd>
+		
 		<dt>Cliente</dt>
 		<dd th:text="${pedido.cliente.nombre}">PEPITO</dd>
 	</dl>

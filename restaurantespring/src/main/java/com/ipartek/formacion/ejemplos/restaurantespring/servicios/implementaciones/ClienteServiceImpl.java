@@ -1,5 +1,6 @@
 package com.ipartek.formacion.ejemplos.restaurantespring.servicios.implementaciones;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import org.springframework.stereotype.Service;
@@ -31,7 +32,14 @@ public class ClienteServiceImpl implements ClienteService {
 
 	@Override
 	public Pedido hacerPedido(Long idCliente, Long... idMenus) throws ServicioException {
-		var pedido = Pedido.builder().cliente(Cliente.builder().id(idCliente).build()).build();
+		// @formatter:off
+		var pedido = Pedido.builder()
+			.fechaHora(LocalDateTime.now())
+			.cliente(Cliente.builder()
+				.id(idCliente)
+			.build())
+		.build();
+		// @formatter:on
 
 		Arrays.stream(idMenus).forEach(id -> pedido.getMenus().add(Menu.builder().id(id).build()));
 

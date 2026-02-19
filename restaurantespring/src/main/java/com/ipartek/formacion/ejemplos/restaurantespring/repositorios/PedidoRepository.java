@@ -15,7 +15,7 @@ public interface PedidoRepository extends CrudRepository<Pedido, Long> {
 	
 	@Query("""
 			select new com.ipartek.formacion.ejemplos.restaurantespring.dtos.PedidoDto(
-				p.id, c.nombre, m.nombre, m.precio
+				p.id, p.fechaHora, c.nombre, m.nombre, m.precio
 			)
 			from Pedido p join p.cliente c join p.menus m
 			""")

@@ -11,6 +11,7 @@
 		<thead>
 			<tr>
 				<th>Id</th>
+				<th>Fecha</th>
 				<th>Cliente</th>
 				<th>Menú</th>
 				<th>Precio</th>
@@ -19,6 +20,7 @@
 		<tbody>
 			<tr th:object="${pedido}" th:each="pedido: ${pedidos}">
 				<th th:text="*{id}">1</th>
+				<th th:text="${#temporals.format(pedido.fechaHora, 'dd/MMM/yyyy HH:mm')}">2026-01-02</th>
 				<td th:text="*{cliente}">Pepe</td>
 				<td th:text="*{menu}">Burguer</td>
 				<td th:text="*{precio}">123</td>
