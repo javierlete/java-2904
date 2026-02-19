@@ -26,11 +26,17 @@ public class ClienteController {
 	public String cliente(@AuthenticationPrincipal Usuario usuario) {
 		return usuario.toString();
 	}
-	
+
 	@PostMapping("pedir")
 	public String pedir(Long[] ids, Model modelo, @AuthenticationPrincipal Usuario usuario) {
-		clienteService.hacerPedido(usuario.getId(), ids);
-		
-		return "redirect:/admin/pedidos";
+		var pedido = clienteService.hacerPedido(usuario.getId(), ids);
+
+		if (usuario.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMINISTRADOR"))) {
+			return "redirect:/admin/pedidos";
+		} else {
+			modelo.addAttribute("pedido", pedido);
+			
+			return "clientes/pedido";
+		}
 	}
 }

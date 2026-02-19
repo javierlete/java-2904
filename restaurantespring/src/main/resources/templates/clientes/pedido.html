@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Pedidos Restaurante Spring Thymeleaf</title>
+</head>
+<body>
+	<h1>Pedidos del Restaurante Spring Thymeleaf</h1>
+
+	<dl>
+		<dt>Número de pedido</dt>
+		<dd th:text="${pedido.id}">1</dd>
+		
+		<dt>Cliente</dt>
+		<dd th:text="${pedido.cliente.nombre}">PEPITO</dd>
+	</dl>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Menú</th>
+				<th>Precio</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:object="${menu}" th:each="menu: ${pedido.menus}">
+				<td th:text="*{nombre}">Burguer</td>
+				<td th:text="*{precio}">123</td>
+			</tr>
+		</tbody>
+	</table>
+
+</body>
+</html>
