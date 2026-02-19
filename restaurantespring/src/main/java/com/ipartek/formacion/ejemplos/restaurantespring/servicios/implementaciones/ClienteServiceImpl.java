@@ -27,7 +27,7 @@ public class ClienteServiceImpl implements ClienteService {
 
 	@Override
 	public Pedido hacerPedido(Long idCliente, Long... idMenus) {
-		var pedido = Pedido.builder().cliente(Cliente.builder().id(1L).build()).build();
+		var pedido = Pedido.builder().cliente(Cliente.builder().id(idCliente).build()).build();
 
 		Arrays.stream(idMenus).forEach(id -> pedido.getMenus().add(Menu.builder().id(id).build()));
 

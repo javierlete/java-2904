@@ -9,6 +9,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.ipartek.formacion.ejemplos.restaurantespring.entidades.Cliente;
 
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+@ToString(callSuper = true)
+@NoArgsConstructor
 public class Usuario extends Cliente implements UserDetails {
 
 	private static final long serialVersionUID = 2035699143174255356L;
