@@ -6,10 +6,11 @@
 </head>
 <body>
 
-<form th:action="@{/admin/menus/guardar}" method="post">
-	<input name="nombre" placeholder="Nombre">
-	<input name="precio" placeholder="Precio">
-	<textarea name="descripcion" placeholder="Descripción"></textarea>
+<form th:action="@{/admin/menus/guardar}" method="post" th:object="${menu}">
+	<input type="hidden" th:field="*{id}">
+	<input th:field="*{nombre}" placeholder="Nombre">
+	<input th:field="*{precio}" placeholder="Precio">
+	<textarea th:field="*{descripcion}" placeholder="Descripción"></textarea>
 
 	<button>Guardar</button>
 </form>

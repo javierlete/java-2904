@@ -1,5 +1,7 @@
 package com.ipartek.formacion.ejemplos.restaurantespring.servicios.implementaciones;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import com.ipartek.formacion.ejemplos.restaurantespring.dtos.PedidoDto;
@@ -27,6 +29,11 @@ public class AdministradorServiceImpl implements AdministradorService {
 	@Override
 	public Iterable<Menu> consultarMenus() {
 		return menuRepository.findAll();
+	}
+
+	@Override
+	public Optional<Menu> menuPorId(Long idMenu) {
+		return menuRepository.findById(idMenu);
 	}
 
 	@Override

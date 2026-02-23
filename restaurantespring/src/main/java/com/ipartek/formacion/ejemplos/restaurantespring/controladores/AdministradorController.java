@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ipartek.formacion.ejemplos.restaurantespring.entidades.Menu;
 import com.ipartek.formacion.ejemplos.restaurantespring.servicios.AdministradorService;
@@ -33,7 +34,13 @@ public class AdministradorController {
 	}
 	
 	@GetMapping("/menus/formulario")
-	public String menusFormulario() {
+	public String menusFormulario(@RequestParam(name = "id", required = false) Long idMenu, Model modelo) {
+		if(idMenu != null) {
+			modelo.addAttribute("menu", administradorService.menuPorId(idMenu).orElse(null));
+		} else {
+			modelo.addAttribute("menu", new Menu());
+		}
+		
 		return "administracion/menusformulario";
 	}
 
