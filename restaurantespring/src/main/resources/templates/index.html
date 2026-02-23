@@ -20,6 +20,9 @@
 		<li sec:authorize="hasRole('ROLE_ADMINISTRADOR')">
 			<a th:href="@{/admin/pedidos}">Listado Pedidos como administrador</a>
 		</li>
+		<li sec:authorize="hasRole('ROLE_ADMINISTRADOR')">
+			<a th:href="@{/admin/menus}">Listado Menus como administrador</a>
+		</li>
 	</ul>
 
 	<form th:action="@{/cliente/pedir}" method="post">

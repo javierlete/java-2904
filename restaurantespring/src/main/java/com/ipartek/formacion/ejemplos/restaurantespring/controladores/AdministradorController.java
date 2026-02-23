@@ -22,4 +22,11 @@ public class AdministradorController {
 		
 		return "administracion/pedidos";
 	}
+	
+	@GetMapping("/menus")
+	public String menus(Model modelo) {
+		modelo.addAttribute("menus", administradorService.consultarMenus());
+		
+		return "administracion/menus";
+	}
 }
