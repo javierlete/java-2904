@@ -23,11 +23,19 @@
 				<td th:text="*{nombre}">Patatas</td>
 				<td th:text="*{precio}">12,34 €</td>
 				<td>
-					<a href="#">Editar</a>
+					<a href="#" th:href="@{/admin/menus/formulario(id=*{id})}">Editar</a>
 					<a href="#" th:href="@{/admin/menus/borrar(id=*{id})}">Borrar</a>
 				</td>
 			</tr>
 		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="3"></td>
+				<td>
+					<a href="#" th:href="@{/admin/menus/formulario}">Añadir</a>
+				</td>
+			</tr>
+		</tfoot>
 	</table>
 </body>
 </html>

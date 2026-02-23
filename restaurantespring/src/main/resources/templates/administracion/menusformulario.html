@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+</head>
+<body>
+
+<form th:action="@{/admin/menus/guardar}" method="post">
+	<input name="nombre" placeholder="Nombre">
+	<input name="precio" placeholder="Precio">
+	<textarea name="descripcion" placeholder="Descripción"></textarea>
+
+	<button>Guardar</button>
+</form>
+
+</body>
+</html>

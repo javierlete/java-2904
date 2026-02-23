@@ -3,8 +3,10 @@ package com.ipartek.formacion.ejemplos.restaurantespring.controladores;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ipartek.formacion.ejemplos.restaurantespring.entidades.Menu;
 import com.ipartek.formacion.ejemplos.restaurantespring.servicios.AdministradorService;
 
 import lombok.RequiredArgsConstructor;
@@ -28,6 +30,18 @@ public class AdministradorController {
 		modelo.addAttribute("menus", administradorService.consultarMenus());
 		
 		return "administracion/menus";
+	}
+	
+	@GetMapping("/menus/formulario")
+	public String menusFormulario() {
+		return "administracion/menusformulario";
+	}
+
+	@PostMapping("/menus/guardar")
+	public String menusGuardar(Menu menu) {
+		administradorService.guardar(menu);
+		
+		return "redirect:/admin/menus";
 	}
 	
 	@GetMapping("/menus/borrar")
