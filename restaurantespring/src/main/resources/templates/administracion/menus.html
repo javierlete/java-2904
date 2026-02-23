@@ -9,12 +9,23 @@
 	<h1>Restaurante Spring Thymeleaf</h1>
 
 	<table>
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Nombre</th>
+				<th>Precio</th>
+				<th>OPCIONES</th>
+			</tr>
+		</thead>
 		<tbody>
 			<tr th:each="menu: ${menus}" th:object="${menu}">
 				<th th:text="*{id}">1</th>
 				<td th:text="*{nombre}">Patatas</td>
 				<td th:text="*{precio}">12,34 €</td>
-				<td th:text="*{descripcion}">Patatas fritas con ...</td>
+				<td>
+					<a href="#">Editar</a>
+					<a href="#" th:href="@{/admin/menus/borrar(id=*{id})}">Borrar</a>
+				</td>
 			</tr>
 		</tbody>
 	</table>

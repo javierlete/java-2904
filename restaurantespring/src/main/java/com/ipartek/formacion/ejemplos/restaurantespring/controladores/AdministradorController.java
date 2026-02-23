@@ -29,4 +29,11 @@ public class AdministradorController {
 		
 		return "administracion/menus";
 	}
+	
+	@GetMapping("/menus/borrar")
+	public String menuBorrar(Long id ) {
+		administradorService.borrar(id);
+		
+		return "redirect:/admin/menus";
+	}
 }
