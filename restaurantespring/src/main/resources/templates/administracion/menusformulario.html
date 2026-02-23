@@ -8,9 +8,15 @@
 
 <form th:action="@{/admin/menus/guardar}" method="post" th:object="${menu}">
 	<input type="hidden" th:field="*{id}">
+	
 	<input th:field="*{nombre}" placeholder="Nombre">
+	<div th:errors="*{nombre}"></div>
+	
 	<input th:field="*{precio}" placeholder="Precio">
+	<div th:errors="*{precio}"></div>
+	
 	<textarea th:field="*{descripcion}" placeholder="Descripción"></textarea>
+	<div th:errors="*{descripcion}"></div>
 
 	<button>Guardar</button>
 </form>

@@ -2,6 +2,7 @@ package com.ipartek.formacion.ejemplos.restaurantespring.controladores;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ipartek.formacion.ejemplos.restaurantespring.entidades.Menu;
 import com.ipartek.formacion.ejemplos.restaurantespring.servicios.AdministradorService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -45,7 +47,11 @@ public class AdministradorController {
 	}
 
 	@PostMapping("/menus/guardar")
-	public String menusGuardar(Menu menu) {
+	public String menusGuardar(@Valid Menu menu, BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) {
+			return "administracion/menusformulario";
+		}
+		
 		administradorService.guardar(menu);
 		
 		return "redirect:/admin/menus";
