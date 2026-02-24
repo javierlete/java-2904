@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-security-extras6">
+
+<div th:fragment="labelForm (id, etiqueta, tipo)" class="row mb-3">
+	<label th:for="${id}" class="col-sm-2 col-form-label"
+		th:text="${etiqueta}">ETIQUETA</label>
+	<div class="col-sm-10">
+		<input th:type="${tipo}" class="form-control" th:id="${id}"
+			th:name="${id}">
+	</div>
+</div>
+
+<div th:fragment="labelFormValidado (id, etiqueta, tipo)"
+	class="row mb-3">
+	<label th:for="${id}" class="col-sm-2 col-form-label"
+		th:text="${etiqueta}">ETIQUETA</label>
+	<div class="col-sm-10">
+		<input th:if="${tipo != 'textarea'}" th:type="${tipo}"
+			class="form-control" th:field="*{__${id}__}"
+			th:classappend="${#fields.hasErrors(id)} ? 'is-invalid'">
+
+		<textarea th:if="${tipo == 'textarea'}" class="form-control"
+			th:field="*{__${id}__}"
+			th:classappend="${#fields.hasErrors(id)} ? 'is-invalid'"></textarea>
+
+		<div class="invalid-feedback" th:errors="*{__${id}__}"></div>
+	</div>
+</div>
+
+<div th:fragment="alerta(texto, nivel)"
+	class="alert alert-dismissible fade show" th:classappend="${'alert-' + nivel}"
+	role="alert">
+
+	<span th:text="${texto}">TEXTO</span>
+
+	<button type="button" class="btn-close" data-bs-dismiss="alert"
+		aria-label="Close"></button>
+</div>

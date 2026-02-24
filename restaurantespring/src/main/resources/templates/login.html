@@ -4,31 +4,21 @@
 <title>Inicio sesión</title>
 <main>
 
-	<div th:if="${param.error != null || param.logout != null}" class="alert alert-dismissible fade show" th:classappend="${param.error} ? 'alert-danger' : 'alert-success'" role="alert">
-		
-		<span th:if="${param.error}">Usuario o contraseña incorrectos</span>
-		<span th:if="${param.logout}">Cierre de sesión correcto</span>
-		
-		<button type="button" class="btn-close" data-bs-dismiss="alert"
-			aria-label="Close"></button>
-	</div>
+	<th:block th:if="${param.error != null}">
+		<div
+			th:replace="~{_fragmentos :: alerta('Usuario o contraseña incorrectos', 'danger')}"></div>
+	</th:block>
 	
-	<form th:action="@{/login}" method="post">
-		<div class="row mb-3">
-			<label for="username" class="col-sm-2 col-form-label">Email</label>
-			<div class="col-sm-10">
-				<input type="email" class="form-control" id="username"
-					name="username">
-			</div>
-		</div>
-		<div class="row mb-3">
-			<label for="password" class="col-sm-2 col-form-label">Password</label>
-			<div class="col-sm-10">
-				<input type="password" class="form-control" id="password"
-					name="password">
-			</div>
-		</div>
+	<th:block th:if="${param.logout != null}">
+		<div
+			th:replace="~{_fragmentos :: alerta('Cierre de sesión correcto', 'success')}"></div>
+	</th:block>
 
+	<form th:action="@{/login}" method="post">
+		<div
+			th:replace="~{_fragmentos :: labelForm ('username', 'Correo electrónico', 'email') }">...</div>
+		<div
+			th:replace="~{_fragmentos :: labelForm ('password', 'Contraseña', 'password') }">...</div>
 
 		<button type="submit" class="btn btn-primary">Iniciar sesión</button>
 	</form>
