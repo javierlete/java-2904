@@ -1,10 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Pedidos Restaurante Spring Thymeleaf</title>
-</head>
-<body>
+<html th:replace="~{_global :: plantilla(~{::title}, ~{::main})}"
+	xmlns:th="https://www.thymeleaf.org">
+<title>Pedido</title>
+<main>
 	<h1>Pedidos del Restaurante Spring Thymeleaf</h1>
 
 	<dl>
@@ -18,8 +16,8 @@
 		<dd th:text="${pedido.cliente.nombre}">PEPITO</dd>
 	</dl>
 
-	<table>
-		<thead>
+	<table class="table table-hover table-striped table-bordered">
+		<thead class="table-secondary">
 			<tr>
 				<th>Menú</th>
 				<th>Precio</th>
@@ -32,6 +30,4 @@
 			</tr>
 		</tbody>
 	</table>
-
-</body>
-</html>
+</main>

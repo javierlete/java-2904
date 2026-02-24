@@ -1,25 +1,38 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Login</title>
-</head>
-<body>
+<html th:replace="~{_global :: plantilla(~{::title}, ~{::main})}"
+	xmlns:th="https://www.thymeleaf.org">
+<title>Edición de menú</title>
+<main>
+	<form th:action="@{/admin/menus/guardar}" method="post"
+		th:object="${menu}">
+		<input type="hidden" th:field="*{id}">
 
-<form th:action="@{/admin/menus/guardar}" method="post" th:object="${menu}">
-	<input type="hidden" th:field="*{id}">
-	
-	<input th:field="*{nombre}" placeholder="Nombre">
-	<div th:errors="*{nombre}"></div>
-	
-	<input th:field="*{precio}" placeholder="Precio">
-	<div th:errors="*{precio}"></div>
-	
-	<textarea th:field="*{descripcion}" placeholder="Descripción"></textarea>
-	<div th:errors="*{descripcion}"></div>
+		<div class="row mb-3">
+			<label class="col-form-label col-sm-2" for="nombre">Nombre</label>
+			<div class="col-sm">
+				<input class="form-control" th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid'" th:field="*{nombre}"
+					placeholder="Nombre">
+				<div class="invalid-feedback" th:errors="*{nombre}"></div>
+			</div>
+		</div>
 
-	<button>Guardar</button>
-</form>
+		<div class="row mb-3">
+			<label class="col-form-label col-sm-2" for="precio">Precio</label>
+			<div class="col-sm">
+				<input class="form-control" th:classappend="${#fields.hasErrors('precio')} ? 'is-invalid'" th:field="*{precio}"
+					placeholder="Precio">
+				<div class="invalid-feedback" th:errors="*{precio}"></div>
+			</div>
+		</div>
 
-</body>
-</html>
+		<div class="row mb-3">
+			<label class="col-form-label col-sm-2" for="descripcion">Descripción</label>
+			<div class="col-sm">
+				<textarea class="form-control" th:classappend="${#fields.hasErrors('descripcion')} ? 'is-invalid'" th:field="*{descripcion}" placeholder="Descripción"></textarea>
+				<div class="invalid-feedback" th:errors="*{descripcion}"></div>
+			</div>
+		</div>
+
+		<button class="btn btn-primary">Guardar</button>
+	</form>
+</main>

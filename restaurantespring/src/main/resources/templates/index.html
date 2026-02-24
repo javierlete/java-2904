@@ -1,40 +1,23 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org"
-	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-<head>
-<meta charset="UTF-8">
-<title>Restaurante Spring Thymeleaf</title>
-</head>
-<body>
+<html th:replace="~{_global :: plantilla(~{::title}, ~{::main})}"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-security-extras6">
+<title>Listado de menús</title>
+<main>
 	<h1>Restaurante Spring Thymeleaf</h1>
 
-	<ul>
-		<li sec:authorize="isAuthenticated()">Usuario: <span sec:authentication="name">ANÓNIMO</span></li>
-		<li sec:authorize="isAuthenticated()">Roles: <span
-			sec:authentication="principal.authorities">NINGÚN ROL</span></li>
-		<li sec:authorize="isAuthenticated()">
-			<form th:action="@{/logout}" method="post">
-				<button>Cerrar sesión</button>
-			</form>
-		</li>
-		<li sec:authorize="hasRole('ROLE_ADMINISTRADOR')">
-			<a th:href="@{/admin/pedidos}">Listado Pedidos como administrador</a>
-		</li>
-		<li sec:authorize="hasRole('ROLE_ADMINISTRADOR')">
-			<a th:href="@{/admin/menus}">Listado Menus como administrador</a>
-		</li>
-	</ul>
-
-	<form th:action="@{/cliente/pedir}" method="post">
-		<ul>
-			<li th:object="${menu}" th:each="menu: ${menus}"><input
-				type="checkbox" name="ids" th:value="*{id}"> <span
-				th:text="*{nombre}">NOMBRE</span>: <span th:text="*{precio}">PRECIO</span>
-			</li>
+	<form class="row justify-content-center" th:action="@{/cliente/pedir}"
+		method="post">
+		<ul class="col-auto list-group">
+			<li class="list-group-item" th:object="${menu}"
+				th:each="menu: ${menus}"><label
+				class="form-check-label d-flex justify-content-between"><span><input
+						class="form-check-input" type="checkbox" name="ids"
+						th:value="*{id}"> <span th:text="*{nombre}">NOMBRE</span>:
+				</span> <span class="ms-3"
+					th:text="${#numbers.formatCurrency(menu.precio)}">PRECIO</span> </label></li>
+			<li class="list-group-item"><button class="w-100 btn btn-primary">Pedir</button></li>
 		</ul>
 
-		<button>Pedir</button>
 	</form>
-
-</body>
-</html>
+</main>

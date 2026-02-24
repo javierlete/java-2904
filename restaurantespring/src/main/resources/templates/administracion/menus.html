@@ -1,41 +1,34 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org"
-	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-<head>
-<meta charset="UTF-8">
-<title>Restaurante Spring Thymeleaf</title>
-</head>
-<body>
+<html th:replace="~{_global :: plantilla(~{::title}, ~{::main})}"
+	xmlns:th="https://www.thymeleaf.org">
+<title>Menús</title>
+<main>
 	<h1>Restaurante Spring Thymeleaf</h1>
 
-	<table>
-		<thead>
+	<table class="table table-hover table-striped table-bordered">
+		<thead class="table-secondary">
 			<tr>
-				<th>Id</th>
+				<th class="text-end">Id</th>
 				<th>Nombre</th>
-				<th>Precio</th>
-				<th>OPCIONES</th>
+				<th class="text-end">Precio</th>
+				<th class="text-center">OPCIONES</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:each="menu: ${menus}" th:object="${menu}">
-				<th th:text="*{id}">1</th>
+				<th class="text-end" th:text="*{id}">1</th>
 				<td th:text="*{nombre}">Patatas</td>
-				<td th:text="*{precio}">12,34 €</td>
-				<td>
-					<a href="#" th:href="@{/admin/menus/formulario(id=*{id})}">Editar</a>
-					<a href="#" th:href="@{/admin/menus/borrar(id=*{id})}">Borrar</a>
-				</td>
+				<td class="text-end" th:text="${#numbers.formatCurrency(menu.precio)}">12,34 €</td>
+				<td class="text-center"><a class="btn btn-sm btn-primary" href="#" th:href="@{/admin/menus/formulario(id=*{id})}">Editar</a>
+					<a class="btn btn-sm btn-danger" href="#" th:href="@{/admin/menus/borrar(id=*{id})}">Borrar</a></td>
 			</tr>
 		</tbody>
-		<tfoot>
+		<tfoot class="table-secondary">
 			<tr>
 				<td colspan="3"></td>
-				<td>
-					<a href="#" th:href="@{/admin/menus/formulario}">Añadir</a>
+				<td class="text-center"><a class="btn btn-sm btn-primary" href="#" th:href="@{/admin/menus/formulario}">Añadir</a>
 				</td>
 			</tr>
 		</tfoot>
 	</table>
-</body>
-</html>
+</main>

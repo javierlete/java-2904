@@ -1,32 +1,29 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Pedidos Restaurante Spring Thymeleaf</title>
-</head>
-<body>
+<html th:replace="~{_global :: plantilla(~{::title}, ~{::main})}"
+	xmlns:th="https://www.thymeleaf.org">
+<title>Pedidos</title>
+<main>
 	<h1>Pedidos del Restaurante Spring Thymeleaf</h1>
 
-	<table>
-		<thead>
+	<table class="table table-hover table-striped table-bordered">
+		<thead class="table-secondary">
 			<tr>
-				<th>Id</th>
-				<th>Fecha</th>
+				<th class="text-end">Id</th>
+				<th class="text-center">Fecha</th>
 				<th>Cliente</th>
 				<th>Menú</th>
-				<th>Precio</th>
+				<th class="text-end">Precio</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:object="${pedido}" th:each="pedido: ${pedidos}">
-				<th th:text="*{id}">1</th>
-				<th th:text="${#temporals.format(pedido.fechaHora, 'dd/MMM/yyyy HH:mm')}">2026-01-02</th>
+				<th class="text-end" th:text="*{id}">1</th>
+				<th class="text-center"
+					th:text="${#temporals.format(pedido.fechaHora, 'dd/MMM/yyyy HH:mm')}">2026-01-02</th>
 				<td th:text="*{cliente}">Pepe</td>
 				<td th:text="*{menu}">Burguer</td>
-				<td th:text="*{precio}">123</td>
+				<td class="text-end" th:text="${#numbers.formatCurrency(pedido.precio)}">123</td>
 			</tr>
 		</tbody>
 	</table>
-
-</body>
-</html>
+</main>
