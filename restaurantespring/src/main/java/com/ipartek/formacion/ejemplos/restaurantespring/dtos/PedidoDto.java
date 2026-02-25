@@ -1,8 +1,10 @@
 package com.ipartek.formacion.ejemplos.restaurantespring.dtos;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
-public record PedidoDto(Long id, LocalDateTime fechaHora, String cliente, String menu, BigDecimal precio) {
+import com.ipartek.formacion.ejemplos.restaurantespring.entidades.Pedido.Estado;
+
+public record PedidoDto(Long id, Estado estado, LocalDateTime fechaHora, String cliente, List<MenuDto> menus) {
 
 }

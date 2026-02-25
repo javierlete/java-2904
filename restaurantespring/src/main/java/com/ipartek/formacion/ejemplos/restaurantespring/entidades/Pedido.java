@@ -39,6 +39,9 @@ public class Pedido {
 	private LocalDateTime fechaHora = LocalDateTime.now();
 	
 	@NotNull
+	private Estado estado;
+	
+	@NotNull
 	@ManyToOne
 	private Cliente cliente;
 
@@ -50,5 +53,9 @@ public class Pedido {
 	public BigDecimal getTotal() {
 		return menus.stream().map(menu -> menu.getPrecio()).reduce(BigDecimal.ZERO,
 				(total, totalParcial) -> total.add(totalParcial));
+	}
+	
+	public static enum Estado {
+		ACEPTADO, RECHAZADO_POR_RESTAURANTE, SERVIDO
 	}
 }

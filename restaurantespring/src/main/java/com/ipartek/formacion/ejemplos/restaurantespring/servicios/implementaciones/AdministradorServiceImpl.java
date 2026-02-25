@@ -9,6 +9,7 @@ import com.ipartek.formacion.ejemplos.restaurantespring.entidades.Menu;
 import com.ipartek.formacion.ejemplos.restaurantespring.repositorios.MenuRepository;
 import com.ipartek.formacion.ejemplos.restaurantespring.repositorios.PedidoRepository;
 import com.ipartek.formacion.ejemplos.restaurantespring.servicios.AdministradorService;
+import com.ipartek.formacion.ejemplos.restaurantespring.servicios.MapeadorService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,10 +21,14 @@ public class AdministradorServiceImpl implements AdministradorService {
 
 	private final PedidoRepository pedidoRepository;
 	private final MenuRepository menuRepository;
+	
+	private final MapeadorService mapeadorService;
 
 	@Override
 	public Iterable<PedidoDto> listadoPedidos() {
-		return pedidoRepository.pedidosConMenusReducida(); // findAll();
+		var pedidos = pedidoRepository.pedidosConMenus();
+		
+		return pedidos.stream().map(p -> mapeadorService.mapear(p)).toList();
 	}
 
 	@Override
