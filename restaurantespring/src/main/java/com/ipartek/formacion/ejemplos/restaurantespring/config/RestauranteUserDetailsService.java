@@ -5,7 +5,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.ipartek.formacion.ejemplos.restaurantespring.repositorios.ClienteRepository;
+import com.ipartek.formacion.ejemplos.restaurantespring.entidades.Usuario;
+import com.ipartek.formacion.ejemplos.restaurantespring.repositorios.UsuarioRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -14,11 +15,19 @@ import lombok.RequiredArgsConstructor;
 // Autenticación
 @Configuration
 public class RestauranteUserDetailsService implements UserDetailsService {
-	private final ClienteRepository clienteRepository;
+	private final UsuarioRepository usuarioRepository;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		return new Usuario(clienteRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("No se ha encontrado el usuario")));
+		Usuario usuario = usuarioRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("No se ha encontrado el usuario"));
+		
+		System.out.println("USUARIO AUTENTICADO: " + usuario);
+		
+		UsuarioLogin usuarioLogin = new UsuarioLogin(usuario);
+		
+		System.out.println("USUARIO LOGIN: " + usuarioLogin);
+		
+		return usuarioLogin;
 	}
 
 }

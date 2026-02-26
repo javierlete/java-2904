@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.ipartek.formacion.ejemplos.restaurantespring.entidades.Cliente;
 import com.ipartek.formacion.ejemplos.restaurantespring.entidades.Menu;
 import com.ipartek.formacion.ejemplos.restaurantespring.entidades.Pedido;
+import com.ipartek.formacion.ejemplos.restaurantespring.entidades.Pedido.Estado;
 import com.ipartek.formacion.ejemplos.restaurantespring.repositorios.PedidoRepository;
 import com.ipartek.formacion.ejemplos.restaurantespring.servicios.ClienteService;
 import com.ipartek.formacion.ejemplos.restaurantespring.servicios.ServicioException;
@@ -24,6 +25,8 @@ public class ClienteServiceImpl implements ClienteService {
 
 	@Override
 	public Pedido hacerPedido(Pedido pedido) throws ServicioException {
+		pedido.setEstado(Estado.ACEPTADO);
+		
 		var pedidoCreado = pedidoRepository.save(pedido);
 
 		return pedidoRepository.findById(pedidoCreado.getId()).orElseThrow(() -> new ServicioException(

@@ -10,14 +10,12 @@ import lombok.experimental.SuperBuilder;
 // Lombok
 @Data // Getters y setters, equals y hashcode, toString
 @SuperBuilder // Patrón Builder
-
 @NoArgsConstructor
-
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 
 // JPA
 @Entity
-public class Cliente extends Usuario {
+public class Administrador extends Usuario {
 	
 }

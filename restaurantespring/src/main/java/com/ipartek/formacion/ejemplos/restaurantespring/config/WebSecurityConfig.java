@@ -17,7 +17,11 @@ class WebSecurityConfig {
 		// @formatter:off
 		http
 			.authorizeHttpRequests(requests -> requests
+				.requestMatchers("/api/**").hasRole("ADMINISTRADOR")
+				.requestMatchers("/trabajador/**").hasRole("TRABAJADOR")
+				.requestMatchers("/cliente/**").hasRole("CLIENTE")
 				.requestMatchers("/admin/**").hasRole("ADMINISTRADOR")
+				.requestMatchers("/css/**", "/js/**").permitAll()
 				.anyRequest().authenticated()
 			)
 			.formLogin(form -> form
